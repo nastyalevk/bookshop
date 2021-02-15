@@ -1,0 +1,25 @@
+<div class="card-body">
+  <div *ngIf="isAdmin">
+    <div class="form-group">
+      <ul class="nav nav-fill nav-pills justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link active bg-secondary" (click)="editUsers()">All orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bg-secondary" (click)="BookApproveComment()">Approve book comments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bg-secondary" (click)="ShopApproveComment()">Approve shop comments</a>
+        </li>
+      </ul>
+    </div>
+    <ag-grid-angular #agGrid style="width: 100%; height: 550px;" class="ag-theme-alpine" [rowData]="rowData"
+      [columnDefs]="columnDefs" rowSelection="single" [paginationAutoPageSize]="true" [pagination]="true">
+    </ag-grid-angular>
+    <button class="btn btn-primary btn-raised text-white float-right mt-3" (click)="getSelectedRow()">Edit</button>
+    <button class="btn btn-primary btn-raised text-white float-left mt-3" (click)="addNew()">Add new</button>
+  </div>
+  <div *ngIf="!isAdmin">
+    <h1 class="text-danger">You aren't admin</h1>
+  </div>
+</div>

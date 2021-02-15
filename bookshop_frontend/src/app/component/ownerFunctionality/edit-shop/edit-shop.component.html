@@ -1,0 +1,66 @@
+<div class="card-body">
+    <div class="container">
+        <div class="form-group">
+            <ul class="nav nav-fill nav-pills justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link bg-secondary" (click)="getAllOrders()">All orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active bg-secondary" (click)="editShop()">Edit shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  bg-secondary" (click)="addNewBook()">Add new book</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  bg-secondary" (click)="addBook()">Add existent book</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  bg-secondary" (click)="shopAssortment()">Shop assortment</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <form #shopForm="ngForm">
+                <div class="form-group">
+                    <label for="id">Id</label>
+                    <input disabled [(ngModel)]="shop.id" name="id" class="form-control" id="id"
+                        placeholder="{{shop.id}}">
+                </div>
+                <div class="form-group">
+                    <label for="shopName">Shop name</label>
+                    <input [(ngModel)]="shop.shopName" name="shopName" class="form-control" id="shopName"
+                        placeholder="{{shop.shopName}}">
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input [(ngModel)]="shop.country" name="country" class="form-control" id="country"
+                        placeholder="{{shop.country}}">
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input [(ngModel)]="shop.city" name="city" class="form-control" id="city"
+                        placeholder="{{shop.city}}">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input [(ngModel)]="shop.address" name="address" class="form-control" id="address"
+                        placeholder="{{shop.address}}">
+                </div>
+                <div class="form-group">
+                    <label for="userId">Owner</label>
+                    <input disabled [(ngModel)]="shop.userId" name="userId" class="form-control" id="userId"
+                        placeholder="{{shop.userId}}">
+                </div>
+                <div class="form-group">
+                    <label for="shop.classification">Change status</label>
+                    <select [(ngModel)]="shop.classification" name="classification" class="form-control">
+                        <option *ngFor="let classification of classifications" [ngValue]="classification">
+                            {{ classification }}
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-info" (click)="onSubmitShop()">Save</button>
+            </form>
+        </div>
+    </div>
+</div>

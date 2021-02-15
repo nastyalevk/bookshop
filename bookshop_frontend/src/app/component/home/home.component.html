@@ -1,0 +1,61 @@
+<div class="card-body">
+  <div class="list row">
+    <h4>Books List</h4>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="bookName" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="retrieveBooks()">
+          Search
+        </button>
+      </div>
+    </div>
+
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th (click)="sortTable('id')" scope="col">#</th>
+          <th (click)="sortTable('bookName')" scope="col">Name</th>
+          <th (click)="sortTable('author')" scope="col">Author</th>
+          <th (click)="sortTable('genre')" scope="col">Genre</th>
+          <th (click)="sortTable('publicationYear')" scope="col">Publ. year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="
+          let book of books | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index
+        " [class.active]="i == currentIndex" (click)="setActiveBook(book, i)">
+          <td>{{ book.id }}</td>
+          <td (click)="LinktoBook(book.id)">{{ book.bookName }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.genre }}</td>
+          <td>{{ book.publicationYear }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+  <div class="row">
+    <div class="col-4">
+      Items per Page:
+      <select (change)="handlePageSizeChange($event)">
+        <option *ngFor="let size of pageSizes" [ngValue]="size">
+          {{ size }}
+        </option>
+      </select>
+    </div>
+
+
+    <div class="col-8">
+      <div class="text-right">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+          (pageChange)="handlePageChange($event)"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

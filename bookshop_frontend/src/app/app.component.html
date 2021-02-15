@@ -1,0 +1,52 @@
+<div id="app">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="/home" class="navbar-brand" routerLink="home"><i class="fa fa-book" aria-hidden="true"></i> Bookshop</a>
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item">
+        <a href="/home" class="nav-link" routerLink="home"><i
+          class="fa fa-home" aria-hidden="true"></i> Home</a>
+      </li>
+      <li class="nav-item" *ngIf="showAdminBoard">
+        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+      </li>
+      <li class="nav-item" *ngIf="showOwnerBoard">
+        <a href="/owner" class="nav-link" routerLink="owner">Owner Board</a>
+      </li>
+      <li class="nav-item" *ngIf="showClientBoard">
+        <a href="/client" class="nav-link" routerLink="client">Client Board</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+
+      <li class="nav-item" *ngIf="showClientBoard">
+        <a href="/cart" class="btn btn-dark ml-3" routerLink="cart">
+          <i class="fa fa-shopping-cart" aria-hidden="true"> Cart</i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile"><i
+          class="fa fa-user" aria-hidden="true"></i> {{ username }}</a>
+      </li>
+
+      <li class="nav-item">
+        <a href class="nav-link" (click)="logout()">LogOut</a>
+      </li>
+
+    </ul>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="card my-5">
+    <div class="card-body">
+        <form #userForm="ngForm">
+            <div class="form-group">
+                <label for="username">username</label>
+                <input class="form-control" type="text" [(ngModel)]="user.username" id="username" name="username"
+                    placeholder="Enter username" required #username="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="text" [(ngModel)]="user.email" id="email" name="email"
+                    placeholder="Enter email" required #email="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" [(ngModel)]="user.firstName" class="form-control" id="firstName" name="firstName"
+                    placeholder="Enter your firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" [(ngModel)]="user.lastName" class="form-control" id="lastName" name="lastName"
+                    placeholder="Enter your lastName">
+            </div>
+
+            <div class="form-group">
+                <label><strong>Role client:</strong></label>
+                <button class=" btn-primary btn-raised text-white float-center mt-3"
+                    *ngIf="getRoleStatus('ROLE_CLIENT')" (click)="changeRoleStatus(false, 'ROLE_CLIENT')">deactivate</button>
+                <button *ngIf="!getRoleStatus('ROLE_CLIENT')"
+                    class=" btn-primary btn-raised text-white float-center mt-3"
+                    (click)="changeRoleStatus(true, 'ROLE_CLIENT')">activate</button>
+            </div>
+            <div class="form-group">
+                <label><strong>Role owner:</strong></label>
+                <button class=" btn-primary btn-raised text-white float-center mt-3" *ngIf="getRoleStatus('ROLE_OWNER')"
+                    (click)="changeRoleStatus(false, 'ROLE_OWNER')">deactivate</button>
+                <button *ngIf="!getRoleStatus('ROLE_OWNER')"
+                    class=" btn-primary btn-raised text-white float-center mt-3"
+                    (click)="changeRoleStatus(true, 'ROLE_OWNER')">activate</button>
+            </div>
+
+            <div class="form-group">
+                <label><strong>Role admin:</strong></label>
+                <button class=" btn-primary btn-raised text-white float-center mt-3" *ngIf="getRoleStatus('ROLE_ADMIN')"
+                    (click)="changeRoleStatus(false, 'ROLE_ADMIN')">deactivate</button>
+                <button *ngIf="!getRoleStatus('ROLE_ADMIN')"
+                    class=" btn-primary btn-raised text-white float-center mt-3"
+                    (click)="changeRoleStatus(true,'ROLE_ADMIN')">activate</button>
+            </div>
+
+
+            <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-info"
+                (click)="onSubmit()">Save</button>
+        </form>
+    </div>
+</div>

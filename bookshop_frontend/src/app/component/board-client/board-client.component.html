@@ -1,0 +1,56 @@
+<div class="card-body">
+    <div *ngIf="isClient">
+        <div class="container">
+            <div class="form-group">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Order submit date</th>
+                            <th scope="col">Order complete date</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Shop</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orders | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                      };
+                let i = index
+              " [class.active]="i == currentIndex" (click)="setActiveOrder(order, i)">
+                            <td (click)="goToOrder(order.orderId)">{{ order.orderId }}</td>
+                            <td (click)="goToOrder(order.orderId)">{{ order.orderNumber }}</td>
+                            <td>{{ order.orderSubmitDate }}</td>
+                            <td>{{ order.orderCompleteDate }}</td>
+                            <td>{{ order.cost }}</td>
+                            <td>{{ shops.get(order.shopId) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                        <option *ngFor="let size of pageSizes" [ngValue]="size">
+                            {{ size }}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-md-10">
+                <div class="text-right">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!isClient">
+        <h1 class="text-danger">You aren't client</h1>
+      </div>
+</div>

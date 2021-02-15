@@ -1,0 +1,118 @@
+<div class="card">
+	<div class="row">
+		<aside class="col-sm-12">
+			<article class="card-body p-5">
+				<h3 class="title mb-3">{{book.bookName}}</h3>
+
+				<p *ngIf="isAvaliable" class="price-detail-wrap">
+					<span class="price h3 text-warning">
+						<span class="currency">at least: $</span><span class="num">{{minPrice}}</span>
+					</span>
+				</p>
+
+				<dl *ngIf="!isAvaliable">
+					<h3 class="title mb-3 text-danger">This book is not avaliable</h3>
+				</dl>
+
+				<dl class="item-property">
+					<dt>Author: </dt>
+					<dd>
+						<p>{{book.author}}</p>
+					</dd>
+				</dl>
+				<hr>
+				<dl class="param param-feature" *ngIf="book.genre">
+					<dt>Genre: </dt>
+					<dd>{{book.genre}}</dd>
+				</dl>
+				<dl class="item-property" *ngIf="book.description">
+					<dt>Description: </dt>
+					<dd>
+						<p>{{book.description}}</p>
+					</dd>
+				</dl>
+				<dl class="param param-feature" *ngIf="book.publicationYear">
+					<dt>Publication year: </dt>
+					<dd>{{book.publicationYear}}</dd>
+				</dl>
+				<dl class="param param-feature" *ngIf="book.pages">
+					<dt>Pages: </dt>
+					<dd>{{book.pages}}</dd>
+				</dl>
+				<dl *ngIf="isAvaliable" class="item-property">
+					<dt>Shops: </dt>
+					<table class="table table-hover table-responsive">
+						<tbody>
+							<tr *ngFor="let assortment of assortments;  let i = index">
+								<td>{{ shopAssortment.get(assortment).id }}</td>
+								<td (click)="goToShop(shopAssortment.get(assortment).id)">{{
+									shopAssortment.get(assortment).shopName }}</td>
+								<td>{{ shopAssortment.get(assortment).country }}</td>
+								<td>{{ shopAssortment.get(assortment).city }}</td>
+								<td>{{ shopAssortment.get(assortment).address }}</td>
+								<td>${{ assortments[i].price }}</td>
+								<td>
+									<h6>Availability: </h6>{{ getStatus(assortment.quantity)}}
+								</td>
+								<td>
+									<div *ngIf="isOpen(assortments[i].classification)">
+										<button class="btn btn-primary btn-raised text-white float-center mt-3"
+											*ngIf="!inCart(shopAssortment.get(assortment).id)"
+											(click)="onSubmit(assortments[i])"><i class="fas fa-shopping-cart"></i> Add
+											to cart</button>
+										<button *ngIf="inCart(shopAssortment.get(assortment).id)"
+											class="btn btn-primary btn-success btn-raised text-white float-center mt-3"
+											(click)="onSubmit(assortments[i])"><i class="fas fa-shopping-cart"></i>
+											already in
+											cart</button>
+									</div>
+									<div *ngIf="!isOpen(assortments[i].classification)">
+										<button disabled
+											class="btn btn-primary btn-raised text-white float-center mt-3"><i
+												class="fas fa-shopping-cart"></i> Add to cart</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</dl>
+
+				<form *ngIf="isClient">
+					<div class="form-group">
+						<label for="comment">Your Comment</label>
+						<textarea name="comment" maxlength="999" [(ngModel)]="review.comment" id="comment" placeholder="Your comment"
+							class="form-control" rows="3"></textarea>
+					</div>
+					<ngb-rating [(rate)]="review.rating"></ngb-rating>
+					<button type="submit" class="btn btn-info float-right" (click)="saveComment()">Send</button>
+
+					<pre>Rate: <b>{{review.rating}}</b>
+					</pre>
+				</form>
+				<div *ngIf="reviews.length">
+					<div *ngFor="let review of reviews; let i = index">
+						<div class="row">
+							<div class="col">
+								<h6 class="media-heading title">{{review.username}}</h6>
+							</div>
+							<div class="col">
+								<p><small>{{review.datetime}}</small></p>
+							</div>
+						</div>
+						<ngb-rating [(rate)]="review.rating"></ngb-rating>
+						<button *ngIf="currentUser==review.username" type="button" class="btn btn-outline-secondary btn-sm float-right"
+							(click)="editComment(review.id)">Edit</button>
+						<p>
+							{{review.comment}}<br>
+						</p>
+					</div>
+				</div>
+				<div *ngIf="!reviews.length">
+					<hr>
+					<h5> No comments yet </h5>
+
+				</div>
+			</article>
+		</aside>
+	</div>
+</div>

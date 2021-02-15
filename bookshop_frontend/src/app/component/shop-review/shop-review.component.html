@@ -1,0 +1,57 @@
+<div class="card-body">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron">
+                    <h1 class="display-3">{{shop.shopName}}</h1>
+                    <p class="lead">{{shop.address}}</p>
+                    <p class="lead">{{shop.city}}</p>
+                    <p class="lead">{{shop.country}}</p>
+                    <p *ngIf="!isClient"><button type="button" class="btn btn-lg btn-success" (click)="goToLogin()"
+                            role="button">Sign up</button>
+                    </p>
+                    <button type="button" class="btn btn-primary" (click)=goToShopAssortment()>
+                        Show assortment
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <form *ngIf="isClient">
+                    <div class="form-group">
+                        <label for="comment">Your Comment</label>
+                        <textarea name="comment" [(ngModel)]="review.comment" id="comment" class="form-control"
+                            rows="3"></textarea>
+                    </div>
+                    <ngb-rating [(rate)]="review.rating"></ngb-rating>
+                    <button type="submit" class="btn btn-info float-right" (click)="saveComment()">Send</button>
+
+                    <pre>Rate: <b>{{review.rating}}</b>
+					</pre>
+                </form>
+                <div *ngIf="reviews.length">
+                    <div *ngFor="let review of reviews; let i = index">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="media-heading title">{{review.username}}</h6>
+                            </div>
+                            <div class="col">
+                                <p><small>{{review.datetime}}</small></p>
+                            </div>
+                        </div>
+                        <ngb-rating [(rate)]="review.rating"></ngb-rating>
+                        <button *ngIf="currentUser==review.username" type="button" class="btn btn-outline-secondary btn-sm float-right"
+                                (click)="editComment(review.id)">Edit</button>
+                        <p>
+                            {{review.comment}}<br>
+                        </p>
+                    </div>
+                </div>
+                <div *ngIf="!reviews.length">
+                    <hr>
+                    <h5> No comments yet </h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

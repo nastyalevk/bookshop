@@ -1,0 +1,78 @@
+<div class="card-body">
+    <div class="container">
+        <div class="form-group">
+            <ul class="nav nav-fill nav-pills justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link bg-secondary" (click)="getAllOrders()">All orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bg-secondary" (click)="editShop()">Edit shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bg-secondary" (click)="addNewBook()">Add new book</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active bg-secondary" (click)="addBook()">Add existent book</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  bg-secondary" (click)="shopAssortment()">Shop assortment</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th (click)="sortTable('id')" scope="col">#</th>
+                        <th (click)="sortTable('bookName')" scope="col">Name</th>
+                        <th (click)="sortTable('author')" scope="col">Author</th>
+                        <th (click)="sortTable('genre')" scope="col">Genre</th>
+                        <th (click)="sortTable('publicationYear')" scope="col">Publ. year</th>
+                        <th>Add</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="
+                let book of books | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                      };
+                let i = index
+              " [class.active]="i == currentIndex" (click)="setActiveBook(book, i)">
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.bookName }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.genre }}</td>
+                        <td>{{ book.publicationYear }}</td>
+                        <td>
+                            <button *ngIf="!isBookInShop(book.id)" type="submit" class="btn btn-info"
+                                (click)="addToShop(book.id)">Add to shop</button>
+                            <button *ngIf="isBookInShop(book.id)" type="submit" class="btn btn-danger"
+                                (click)="deleteFromShop(book.id)"><i class="fa fa-trash" aria-hidden="true"></i>
+                                Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-md-12">
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                        <option *ngFor="let size of pageSizes" [ngValue]="size">
+                            {{ size }}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-md-10">
+                <div class="text-right">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
