@@ -27,8 +27,8 @@ public class AssortmentController {
     }
 
     @GetMapping("/price/{bookId}/{shopId}")
-    public ResponseEntity<Integer> getPriceByBookShop
-            (@PathVariable("bookId") Integer bookId, @PathVariable("shopId") Integer shopId) {
+    public ResponseEntity<Integer> getPriceByBookShop(@PathVariable("bookId") Integer bookId,
+                                                      @PathVariable("shopId") Integer shopId) {
         return new ResponseEntity<>(assortmentService.getPriceByBookShop(bookId, shopId), HttpStatus.OK);
     }
 
