@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bookshop.iml" filepath="$PROJECT_DIR$/bookshop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bookshop-fapi/demo.iml" filepath="$PROJECT_DIR$/bookshop-fapi/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bookshop-backend/spring-boot-mysql-crud.iml" filepath="$PROJECT_DIR$/bookshop-backend/spring-boot-mysql-crud.iml" />
+    </modules>
+  </component>
+</project>
