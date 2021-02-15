@@ -24,12 +24,12 @@ public class AssortmentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity create(@RequestBody AssortmentDto assortmentDto) {
+    public ResponseEntity<?> create(@RequestBody AssortmentDto assortmentDto) {
         return new ResponseEntity<>(assortmentService.save(assortmentDto), HttpStatus.OK);
     }
 
     @PostMapping("/update")
-    public ResponseEntity update(@RequestBody AssortmentDto assortmentDto) {
+    public ResponseEntity<?> update(@RequestBody AssortmentDto assortmentDto) {
         return new ResponseEntity<>(assortmentService.update(assortmentDto), HttpStatus.OK);
     }
 
@@ -40,20 +40,20 @@ public class AssortmentController {
     }
 
     @GetMapping(path = "/delete/{bookId}/{shopId}")
-    public ResponseEntity deleteAssortment(@PathVariable("bookId") Integer bookId,
+    public ResponseEntity<?> deleteAssortment(@PathVariable("bookId") Integer bookId,
                                            @PathVariable("shopId") Integer shopId) {
         assortmentService.delete(bookId, shopId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(path = "/{bookId}/{shopId}")
-    public ResponseEntity getOne(@PathVariable("bookId") Integer bookId,
+    public ResponseEntity<?> getOne(@PathVariable("bookId") Integer bookId,
                                  @PathVariable("shopId") Integer shopId) {
         return new ResponseEntity<>(assortmentService.getOne(bookId, shopId), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{bookId}")
-    public ResponseEntity getOne(@PathVariable("bookId") Integer bookId) {
+    public ResponseEntity<?> getOne(@PathVariable("bookId") Integer bookId) {
         return new ResponseEntity<>(assortmentService.getByBook(bookId), HttpStatus.OK);
     }
 }

@@ -31,7 +31,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public ResponseEntity getAllBook(String bookName, int page, int size, String[] sort) {
+    public ResponseEntity<PageResponse> getAllBook(String bookName, int page, int size, String[] sort) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
@@ -67,6 +67,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Boolean isBook(Integer id) {
-        return restTemplate.getForObject(UrlConst.BookUrl+"exist/"+id, Boolean.class);
+        return restTemplate.getForObject(UrlConst.BookUrl + "exist/" + id, Boolean.class);
     }
+
 }

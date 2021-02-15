@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PageResponse findByClientUsername(int page, int size, String username) {
+    public PageResponse<OrderDto> findByClientUsername(int page, int size, String username) {
         Pageable paging = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Order> orders = orderRepository.findByUserUsername(username, paging);
         return transfer(orders);
@@ -64,10 +64,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PageResponse getOrderByShop(int page, int size, int shopId, String username) {
+    public PageResponse<OrderDto> getOrderByShop(int page, int size, int shopId, String username) {
         Shop shop = shopRepository.getOne(shopId);
-        if(!shop.getUser().getUsername().equals(username)){
-           throw new NoAccessException("You dont have access for this page!");
+        if (!shop.getUser().getUsername().equals(username)) {
+            throw new NoAccessException("You dont have access for this page!");
         }
         Pageable paging = PageRequest.of(page, size,
                 Sort.by("id").descending());
@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
         orderDto.setDeliveryAddress(order.getDeliveryAddress());
         orderDto.setDescription(order.getDescription());
         orderDto.setOrderSubmitDate(order.getOrderSubmitDate().toString());
-        orderDto.setClassification(OrderClassification.valueOf(order.getClassification().getName()));
+        orderDto.setClassification(OrderClassification.valueOf(order.getClassification().getName().toUpperCase()));
         orderDto.setCost(order.getCost());
         orderDto.setOrderCompleteDate(order.getOrderCompleteDate().toString());
         orderDto.setUsername(order.getUser().getUsername());
@@ -116,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
-    private PageResponse transfer(Page page) {
+    private PageResponse<OrderDto> transfer(Page<Order> page) {
         PageResponse<OrderDto> pageResponse = new PageResponse<>();
         pageResponse.setContent(transfer(page.getContent()));
         pageResponse.setCurrentPage(page.getNumber());

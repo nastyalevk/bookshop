@@ -43,4 +43,5 @@ public class ConfirmationToken {
     @JoinColumn(nullable = false, name = "user_id")
     @JsonIgnore
     private User user;
+
 }

@@ -40,7 +40,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> findAll() {
         List<Book> books = bookRepository.findAll();
-        List<BookDto> bookDtos = new ArrayList<BookDto>();
+        List<BookDto> bookDtos = new ArrayList<>();
         for (Book i : books) {
             bookDtos.add(transfer(i));
         }
@@ -53,7 +53,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public PageResponse getAllBooksPage(String bookName, int page, int size, String[] sort) {
+    public PageResponse<BookDto> getAllBooksPage(String bookName, int page, int size, String[] sort) {
         Pageable pagingSort = PageRequest.of(page, size, Sort.by(sortType(sort)));
         Page<Book> pageBook;
         if (bookName == null) {
@@ -66,7 +66,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public PageResponse getBookByShop(int page, int size, Integer shopId) {
+    public PageResponse<BookDto> getBookByShop(int page, int size, Integer shopId) {
         Pageable paging = PageRequest.of(page, size);
         Page<Assortment> assortments = assortmentRepository.findAllByAssortmentIdShopId(shopId, paging);
         List<BookDto> bookDtos = new ArrayList<>();
@@ -87,10 +87,9 @@ public class BookServiceImpl implements BookService {
     }
 
     private List<Sort.Order> sortType(String[] fieldsort) {
-        List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        List<Sort.Order> orders = new ArrayList<>();
         for (String i : fieldsort) {
             String[] split = i.split("_");
-            Sort sort = Sort.unsorted();
             if ("asc".equalsIgnoreCase(split[1])) {
                 orders.add(new Sort.Order(Sort.Direction.ASC, split[0]));
             } else if ("desc".equalsIgnoreCase(split[1])) {
@@ -132,7 +131,7 @@ public class BookServiceImpl implements BookService {
         return book;
     }
 
-    private PageResponse transfer(Page page) {
+    private PageResponse<BookDto> transfer(Page<Book> page) {
         PageResponse<BookDto> pageResponse = new PageResponse<>();
         pageResponse.setContent(transfer(page.getContent()));
         pageResponse.setCurrentPage(page.getNumber());

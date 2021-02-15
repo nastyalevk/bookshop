@@ -43,5 +43,4 @@ public class ShopServiceImpl implements ShopService {
                 SecurityContextHolder.getContext().getAuthentication().getName(), shopDto, ShopDto.class);
     }
 
-
 }

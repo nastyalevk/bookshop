@@ -78,4 +78,5 @@ public class ReviewServiceImpl implements ReviewService {
     public ResponseEntity<ShopReviewDto> deleteShopReview(ShopReviewDto shopReviewDto) {
         return restTemplate.postForEntity(UrlConst.ReviewUrl + "delete/shop", shopReviewDto, ShopReviewDto.class);
     }
+
 }

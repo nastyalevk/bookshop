@@ -7,4 +7,5 @@ public interface ConfirmationTokenService {
     ConfirmationTokenDto findByToken(String token);
 
     ConfirmationTokenDto save(ConfirmationTokenDto confirmationTokenDto);
+
 }

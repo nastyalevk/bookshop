@@ -36,8 +36,7 @@ public class AssortmentServiceImpl implements AssortmentService {
     @Override
     public boolean existsByBook(Integer bookId, Integer shopId) {
         return restTemplate.
-                getForObject(UrlConst.AssortmentUrl + "exists/" + bookId + "/" + shopId, Boolean.class).
-                booleanValue();
+                getForObject(UrlConst.AssortmentUrl + "exists/" + bookId + "/" + shopId, Boolean.class);
     }
 
     @Override

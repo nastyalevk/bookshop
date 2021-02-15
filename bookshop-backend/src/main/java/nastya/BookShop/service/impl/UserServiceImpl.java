@@ -1,5 +1,6 @@
 package nastya.BookShop.service.impl;
 
+import nastya.BookShop.dto.logs.ELogs;
 import nastya.BookShop.dto.role.ERole;
 import nastya.BookShop.dto.role.RoleDto;
 import nastya.BookShop.dto.user.UserDto;
@@ -59,29 +60,26 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User saveUser(UserDto userDto) {
-        User user = createUser(userDto);
-        return user;
+    public void saveUser(UserDto userDto) {
+        createUser(userDto);
     }
 
     @Override
-    public User updateUser(UserDto userDto, String username) {
+    public void updateUser(UserDto userDto, String username) {
         if (userRepository.getOne(userDto.getId()).getActivated() != userDto.getActivated()) {
             Logs log = new Logs();
             log.setUser(userRepository.getOne(userDto.getId()));
             log.setAdmin(userRepository.findByUsername(username));
             log.setDatetime(new Date());
             if (userDto.getActivated()) {
-                log.setOperation("UNBLOCK");
+                log.setOperation(ELogs.UNBLOCK.toString());
             } else {
-                log.setOperation("BLOCK");
+                log.setOperation(ELogs.BLOCK.toString());
             }
             log.setReason(userDto.getMessage());
             logsRepository.save(log);
         }
-
-        User user = createUser(userDto);
-        return user;
+        createUser(userDto);
     }
 
 
@@ -114,7 +112,7 @@ public class UserServiceImpl implements UserService {
         log.setUser(userRepository.getOne(userId));
         log.setAdmin(userRepository.findByUsername(adminUsername));
         log.setDatetime(new Date());
-        log.setOperation("CHANGE_ROLE");
+        log.setOperation(ELogs.CHANGE_ROLE.toString());
         log.setReason(message.replace("_", " "));
         logsRepository.save(log);
     }
@@ -165,7 +163,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    private User createUser(UserDto userDto) {
-        return userRepository.save(transfer(userDto));
+    private void createUser(UserDto userDto) {
+        userRepository.save(transfer(userDto));
     }
 }

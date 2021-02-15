@@ -13,9 +13,10 @@ public interface BookService {
 
     BookDto saveBook(BookDto book);
 
-    PageResponse getAllBooksPage(String bookName, int page, int size, String[] sort);
+    PageResponse<BookDto> getAllBooksPage(String bookName, int page, int size, String[] sort);
 
-    PageResponse getBookByShop(int page, int size, Integer shopId);
+    PageResponse<BookDto> getBookByShop(int page, int size, Integer shopId);
 
     Boolean isBook(Integer id);
+
 }

@@ -52,7 +52,7 @@ public class AssortmentController {
     }
 
     @GetMapping(path = "/delete/{bookId}/{shopId}")
-    public ResponseEntity deleteAssortment(@PathVariable("bookId") Integer bookId,
+    public ResponseEntity<HttpStatus> deleteAssortment(@PathVariable("bookId") Integer bookId,
                                            @PathVariable("shopId") Integer shopId) throws ParseException {
         assortmentService.delete(bookId, shopId);
         return new ResponseEntity<>(HttpStatus.OK);

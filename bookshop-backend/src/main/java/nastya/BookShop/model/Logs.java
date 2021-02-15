@@ -42,5 +42,4 @@ public class Logs {
     private Date datetime;
     private String operation;
 
-
 }

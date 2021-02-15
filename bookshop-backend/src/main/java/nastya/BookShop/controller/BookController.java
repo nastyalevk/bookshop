@@ -26,7 +26,7 @@ public class BookController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageResponse> findAll(@RequestParam(required = false) String bookName,
+    public ResponseEntity<PageResponse<BookDto>> findAll(@RequestParam(required = false) String bookName,
                                                 @RequestParam(defaultValue = "0") int page,
                                                 @RequestParam(defaultValue = "3") int size,
                                                 @RequestParam(required = false) String[] sort) {
@@ -45,10 +45,10 @@ public class BookController {
     }
 
     @GetMapping("/shop/")
-    public ResponseEntity<PageResponse> getBooksByShop(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<PageResponse<BookDto>> getBooksByShop(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "9") int size,
                                                        @RequestParam() int id) {
-        return new ResponseEntity(bookService.getBookByShop(page, size, id), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.getBookByShop(page, size, id), HttpStatus.OK);
 
     }
 

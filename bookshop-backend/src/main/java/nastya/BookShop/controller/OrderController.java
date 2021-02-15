@@ -44,17 +44,17 @@ public class OrderController {
     }
 
     @GetMapping("/client/")
-    public ResponseEntity<PageResponse> getOrdersByClient(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<PageResponse<OrderDto>> getOrdersByClient(@RequestParam(defaultValue = "0") int page,
                                                           @RequestParam(defaultValue = "9") int size,
                                                           @RequestParam() String username) {
         return new ResponseEntity<>(orderService.findByClientUsername(page, size, username), HttpStatus.OK);
     }
 
     @GetMapping("/shop/")
-    public ResponseEntity<PageResponse> getOrdersByShop(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<PageResponse<OrderDto>> getOrdersByShop(@RequestParam(defaultValue = "0") int page,
                                                         @RequestParam(defaultValue = "9") int size,
                                                         @RequestParam() int shopId,
-                                                        @RequestParam(name = "usernameRequested") String useraname) {
-        return new ResponseEntity<>(orderService.getOrderByShop(page, size, shopId, useraname), HttpStatus.OK);
+                                                        @RequestParam(name = "usernameRequested") String username) {
+        return new ResponseEntity<>(orderService.getOrderByShop(page, size, shopId, username), HttpStatus.OK);
     }
 }

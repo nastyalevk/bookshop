@@ -2,9 +2,7 @@ package com.nastya.bookShop.service.impl;
 
 import com.nastya.bookShop.config.UrlConst;
 import com.nastya.bookShop.model.user.UserDto;
-import com.nastya.bookShop.service.api.EmailService;
 import com.nastya.bookShop.service.api.UserService;
-import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,14 +13,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final RestTemplate restTemplate;
+
     @Autowired
     public UserServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -44,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto){
+    public void saveUser(UserDto userDto) {
         restTemplate.postForEntity(UrlConst.UserUrl + "create/", userDto, String.class);
     }
 
@@ -83,4 +80,5 @@ public class UserServiceImpl implements UserService {
                 entity,
                 String.class);
     }
+
 }

@@ -83,7 +83,8 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(message);
     }
 
-    public ResponseEntity verify(String verificationCode) throws UnsupportedEncodingException, MessagingException {
+    public ResponseEntity<MessageResponse> verify(String verificationCode)
+            throws UnsupportedEncodingException, MessagingException {
         ConfirmationTokenDto confirmationTokenDto = confirmationTokenService.findByToken(verificationCode);
         UserDto user = userService.findByUserName(confirmationTokenDto.getUsername());
         if (user == null || user.getIsEnabled()) {
@@ -105,4 +106,5 @@ public class EmailServiceImpl implements EmailService {
         confirmationTokenService.save(confirmationToken);
         return confirmationToken;
     }
+
 }

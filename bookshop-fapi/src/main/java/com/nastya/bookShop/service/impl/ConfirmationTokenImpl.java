@@ -27,4 +27,5 @@ public class ConfirmationTokenImpl implements ConfirmationTokenService {
         return restTemplate.postForEntity(UrlConst.TokenUrl + "create", confirmationTokenDto,
                 ConfirmationTokenDto.class).getBody();
     }
+
 }

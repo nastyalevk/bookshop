@@ -22,4 +22,5 @@ public class RoleServiceImpl implements RoleService {
     public List<RoleDto> findByName(String name) {
         return restTemplate.getForObject(UrlConst.RoleUrl + name, List.class);
     }
+
 }

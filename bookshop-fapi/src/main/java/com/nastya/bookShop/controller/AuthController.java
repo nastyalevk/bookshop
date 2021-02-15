@@ -44,7 +44,7 @@ public class AuthController {
     }
 
     @GetMapping("verify/")
-    public ResponseEntity verifyUser(@RequestParam(name = "code") String code)
+    public ResponseEntity<?> verifyUser(@RequestParam(name = "code") String code)
             throws UnsupportedEncodingException, MessagingException {
         return emailService.verify(code);
     }

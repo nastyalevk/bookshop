@@ -21,5 +21,4 @@ public interface AssortmentService {
 
     List<AssortmentDto> getByBook(Integer bookId);
 
-
 }

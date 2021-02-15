@@ -13,4 +13,5 @@ public class NoAccessException extends RuntimeException {
         super(message);
         this.message = message;
     }
+
 }

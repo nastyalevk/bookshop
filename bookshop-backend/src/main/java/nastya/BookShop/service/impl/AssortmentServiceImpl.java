@@ -49,8 +49,8 @@ public class AssortmentServiceImpl implements AssortmentService {
     @Override
     public AssortmentDto update(AssortmentDto assortmentDto, String username) throws ParseException {
         Assortment assortment = transfer(assortmentDto);
-        if(assortmentRepository.existsByAssortmentId(assortment.getAssortmentId())){
-            if(!assortment.getAssortmentId().getShop().getUser().getUsername().equals(username)){
+        if (assortmentRepository.existsByAssortmentId(assortment.getAssortmentId())) {
+            if (!assortment.getAssortmentId().getShop().getUser().getUsername().equals(username)) {
                 throw new NoAccessException("You dont have access for this action!");
             }
         }
@@ -69,7 +69,7 @@ public class AssortmentServiceImpl implements AssortmentService {
     }
 
     @Override
-    public void delete(Integer bookId, Integer shopId){
+    public void delete(Integer bookId, Integer shopId) {
         assortmentRepository.deleteByAssortmentId(new AssortmentId(bookRepository.getOne(bookId),
                 shopRepository.getOne(shopId)));
     }
@@ -111,9 +111,9 @@ public class AssortmentServiceImpl implements AssortmentService {
         return assortment;
     }
 
-    private List<AssortmentDto> transfer(List<Assortment> assortments){
+    private List<AssortmentDto> transfer(List<Assortment> assortments) {
         List<AssortmentDto> assortmentDtos = new ArrayList<>();
-        for(Assortment i: assortments){
+        for (Assortment i : assortments) {
             assortmentDtos.add(transfer(i));
         }
         return assortmentDtos;

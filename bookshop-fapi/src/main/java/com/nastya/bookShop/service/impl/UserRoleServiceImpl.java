@@ -20,4 +20,5 @@ public class UserRoleServiceImpl implements UserRoleService {
     public void save(UserRolesDto userRolesDto) {
         restTemplate.postForEntity(UrlConst.UserRoleUrl + "create/", userRolesDto, String.class);
     }
+
 }
