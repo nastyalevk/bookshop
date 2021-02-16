@@ -56,7 +56,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers(UrlConst.AuthUrl+"user/new").hasRole("ADMIN")
@@ -66,6 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/review/delete/**").hasAnyRole("ADMIN", "CLIENT")
                 .antMatchers("/review/one/**").hasAnyRole("ADMIN","CLIENT")
                 .antMatchers("/book/create").hasRole("OWNER")
+                .antMatchers("/stat/proceed/**").hasRole("OWNER")
+                .antMatchers("/stat/shop/order/{shopId}").hasRole("OWNER")
                 .antMatchers("/book/update").hasRole("OWNER")
                 .antMatchers("/shop/create").hasRole("OWNER")
                 .antMatchers("/shop/username").hasRole("OWNER")
@@ -81,6 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/book/**").permitAll()
                 .antMatchers("/order/**").permitAll()
                 .antMatchers("/shop/**").permitAll()
+                .antMatchers("/stat/shops").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

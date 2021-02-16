@@ -38,7 +38,6 @@ import { ShopCommentApproveComponent } from './component/comment-approve/shop-co
 import { EditCommentComponent } from './component/comment-approve/edit-comment/edit-comment.component';
 import { NotExistComponent } from './component/not-exist/not-exist.component';
 import { NgbdModalContentComponent } from './component/ngbd-modal-content/ngbd-modal-content.component';
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -12,11 +12,11 @@ public class UrlConst {
     public static final String UserUrl = Url + "/user/";
     public static final String UserRoleUrl = Url + "/user/role/";
     public static final String TokenUrl = Url + "/token/";
-
+    public static final String StatsUrl = Url + "/stat/";
     public static final String AuthUrl = "/auth/";
 
     public static final String AngularUrl = "http://localhost:4200";
-    public static final String AngularAuthUrl = AngularUrl+AuthUrl;
+    public static final String AngularAuthUrl = AngularUrl + AuthUrl;
 
 
 }
