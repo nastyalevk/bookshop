@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -37,6 +38,8 @@ public class EmailServiceImpl implements EmailService {
         this.env = env;
     }
 
+    @Override
+    @Transactional
     public void sendVerificationEmail(UserDto user)
             throws MessagingException, UnsupportedEncodingException {
         ConfirmationTokenDto confirmationToken = saveToken(user);
@@ -62,6 +65,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    @Transactional
     public void sendCreation(UserDto user, String randomCode)
             throws MessagingException, UnsupportedEncodingException {
         String subject = "You've been registered!";
@@ -83,6 +87,7 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(message);
     }
 
+    @Override
     public ResponseEntity<MessageResponse> verify(String verificationCode)
             throws UnsupportedEncodingException, MessagingException {
         ConfirmationTokenDto confirmationTokenDto = confirmationTokenService.findByToken(verificationCode);
@@ -98,6 +103,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+    @Override
     public ConfirmationTokenDto saveToken(UserDto user) {
         ConfirmationTokenDto confirmationToken = new ConfirmationTokenDto();
         String randomCode = RandomString.make(64);

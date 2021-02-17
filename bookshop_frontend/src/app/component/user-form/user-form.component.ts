@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Role } from 'src/app/model/role/role';
 import { User } from 'src/app/model/user/user';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
+import { NgbdModalContentComponent } from '../ngbd-modal-content/ngbd-modal-content.component';
 
 @Component({
   selector: 'app-user-form',
@@ -14,9 +16,9 @@ export class UserFormComponent {
   user: User;
   roles: string[] = [];
   status = '';
+  model: NgbDateStruct;
 
-  constructor(private router: Router,
-    private userService: UserService, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private modalService: NgbModal) {
     this.user = new User();
     this.user.activated = true;
     console.log(this.user.activated);
@@ -26,7 +28,12 @@ export class UserFormComponent {
   onSubmit() {
     this.user.roles = this.rolesToEntity();
     console.log(this.user);
-    this.authService.newUser(this.user.username, this.user.email).subscribe(() => this.gotoUserList());
+    this.authService.newUser(this.user.username, this.user.email).subscribe(
+    () => this.gotoUserList(), 
+    err => {
+      const modalRef = this.modalService.open(NgbdModalContentComponent);
+      modalRef.componentInstance.message = err.error.message;
+    });
   }
 
   gotoUserList() {
