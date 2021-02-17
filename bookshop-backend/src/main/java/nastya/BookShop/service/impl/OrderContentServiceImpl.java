@@ -53,6 +53,7 @@ public class OrderContentServiceImpl implements OrderContentService {
     }
 
     @Override
+    @Transactional()
     public OrderContentDto saveOrderContent(OrderContentDto orderContentDto) {
         OrderContent orderContent = transfer(orderContentDto);
         Assortment assortment = assortmentRepository.getAssortmentByAssortmentId(

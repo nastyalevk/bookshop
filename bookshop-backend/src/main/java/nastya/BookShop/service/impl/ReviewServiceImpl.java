@@ -1,5 +1,6 @@
 package nastya.BookShop.service.impl;
 
+import nastya.BookShop.config.DateFormatter;
 import nastya.BookShop.dto.review.BookReviewDto;
 import nastya.BookShop.dto.review.ShopReviewDto;
 import nastya.BookShop.model.BookReview;
@@ -116,7 +117,7 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDto.setComment(review.getComment());
         reviewDto.setRating(review.getRating());
         reviewDto.setBookId(review.getBook().getId());
-        reviewDto.setDatetime(review.getDatetime().toString());
+        reviewDto.setDatetime(new DateFormatter().formatDate(review.getDatetime()));
         reviewDto.setApproved(review.getApproved());
         return reviewDto;
     }
@@ -128,33 +129,31 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDto.setComment(review.getComment());
         reviewDto.setRating(review.getRating());
         reviewDto.setShopId(review.getShop().getId());
-        reviewDto.setDatetime(review.getDatetime().toString());
+        reviewDto.setDatetime(new DateFormatter().formatDate(review.getDatetime()));
         reviewDto.setApproved(review.getApproved());
         return reviewDto;
     }
 
     private BookReview transfer(BookReviewDto reviewDto) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         BookReview review = new BookReview();
         review.setId(reviewDto.getId());
         review.setUser(userRepository.findByUsername(reviewDto.getUsername()));
         review.setComment(reviewDto.getComment());
         review.setRating(reviewDto.getRating());
         review.setBook(bookRepository.getOne(reviewDto.getBookId()));
-        review.setDatetime(formatter.parse(reviewDto.getDatetime()));
+        review.setDatetime(new DateFormatter().formatDate(reviewDto.getDatetime()));
         review.setApproved(reviewDto.isApproved());
         return review;
     }
 
     private ShopReview transfer(ShopReviewDto reviewDto) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         ShopReview review = new ShopReview();
         review.setId(reviewDto.getId());
         review.setUser(userRepository.findByUsername(reviewDto.getUsername()));
         review.setComment(reviewDto.getComment());
         review.setRating(reviewDto.getRating());
         review.setShop(shopRepository.getOne(reviewDto.getShopId()));
-        review.setDatetime(formatter.parse(reviewDto.getDatetime()));
+        review.setDatetime(new DateFormatter().formatDate(reviewDto.getDatetime()));
         review.setApproved(reviewDto.isApproved());
         return review;
     }

@@ -1,5 +1,6 @@
 package nastya.BookShop.service.impl;
 
+import nastya.BookShop.config.DateFormatter;
 import nastya.BookShop.dto.order.OrderClassification;
 import nastya.BookShop.dto.order.OrderDto;
 import nastya.BookShop.dto.response.PageResponse;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,28 +90,26 @@ public class OrderServiceImpl implements OrderService {
         orderDto.setShopId(order.getShop().getId());
         orderDto.setDeliveryAddress(order.getDeliveryAddress());
         orderDto.setDescription(order.getDescription());
-        orderDto.setOrderSubmitDate(order.getOrderSubmitDate().toString());
+        orderDto.setOrderSubmitDate(new DateFormatter().formatDate(order.getOrderSubmitDate()));
         orderDto.setClassification(OrderClassification.valueOf(order.getClassification().getName().toUpperCase()));
         orderDto.setCost(order.getCost());
-        orderDto.setOrderCompleteDate(order.getOrderCompleteDate().toString());
+        orderDto.setOrderCompleteDate(new DateFormatter().formatDate(order.getOrderCompleteDate()));
         orderDto.setUsername(order.getUser().getUsername());
         return orderDto;
     }
 
-    private Order transfer(OrderDto orderDto) throws ParseException {
+    private synchronized Order transfer(OrderDto orderDto) throws ParseException {
         Order order = new Order();
         order.setId(orderDto.getOrderId());
         order.setOrderNumber(orderDto.getOrderNumber());
         order.setShop(shopRepository.getShopById(orderDto.getShopId()));
         order.setDeliveryAddress(orderDto.getDeliveryAddress());
         order.setDescription(orderDto.getDescription());
-        order.setOrderSubmitDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                .parse(orderDto.getOrderSubmitDate()));
+        order.setOrderSubmitDate(new DateFormatter().formatDate(orderDto.getOrderSubmitDate()));
         order.setClassification(classificationRepository.getClassificationByNameAndAndClassificationName(
                 orderDto.getClassification().toString(), "order"));
         order.setCost(orderDto.getCost());
-        order.setOrderCompleteDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                .parse(orderDto.getOrderCompleteDate()));
+        order.setOrderCompleteDate(new DateFormatter().formatDate(orderDto.getOrderCompleteDate()));
         order.setUser(userRepository.findByUsername(orderDto.getUsername()));
         return order;
     }

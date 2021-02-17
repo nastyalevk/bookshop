@@ -1,5 +1,6 @@
 package nastya.BookShop.service.impl;
 
+import nastya.BookShop.config.DateFormatter;
 import nastya.BookShop.dto.assortment.AssortmentClassification;
 import nastya.BookShop.dto.assortment.AssortmentDto;
 import nastya.BookShop.dto.classification.ClassificationParent;
@@ -92,7 +93,7 @@ public class AssortmentServiceImpl implements AssortmentService {
         assortmentDto.setShopId(assortment.getAssortmentId().getShop().getId());
         assortmentDto.setQuantity(assortment.getQuantity());
         assortmentDto.setPrice(assortment.getPrice());
-        assortmentDto.setCreationDate(assortment.getCreationDate().toString());
+        assortmentDto.setCreationDate(new DateFormatter().formatDate(assortment.getCreationDate()));
         assortmentDto.setClassification(AssortmentClassification
                 .valueOf(assortment.getClassification().getName().toUpperCase()));
         return assortmentDto;
@@ -104,8 +105,7 @@ public class AssortmentServiceImpl implements AssortmentService {
                 shopRepository.getOne(assortmentDto.getShopId())));
         assortment.setQuantity(assortmentDto.getQuantity());
         assortment.setPrice(assortmentDto.getPrice());
-        assortment.setCreationDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                .parse(assortmentDto.getCreationDate()));
+        assortment.setCreationDate(new DateFormatter().formatDate(assortmentDto.getCreationDate()));
         assortment.setClassification(classificationRepository.getClassificationByNameAndAndClassificationName(
                 assortmentDto.getClassification().getName(), ClassificationParent.ASSORTMENT.getName()));
         return assortment;

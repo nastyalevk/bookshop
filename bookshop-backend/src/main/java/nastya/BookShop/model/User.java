@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -55,11 +56,11 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private Set<Logs> userLog;
+    private List<Logs> userLog;
 
     @OneToMany(mappedBy = "admin")
     @JsonIgnore
-    private Set<Logs> adminLog;
+    private List<Logs> adminLog;
 
     private String username;
     private String email;
