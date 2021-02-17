@@ -16,7 +16,7 @@ export class ShopService {
     return this.http.get(Url + "/username");
   }
 
-  getShop(shopId: number): Observable<Shop>{
+  getShop(shopId: number | undefined): Observable<Shop>{
     return this.http.get<Shop>(Url + "/" + shopId);
   }
 

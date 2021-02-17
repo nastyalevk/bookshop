@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ShopReview } from 'src/app/model/review/shop/shop-review';
-import { ReviewService } from 'src/app/_services/review/review.service';
-import { TokenStorageService } from 'src/app/_services/token/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ShopReview} from 'src/app/model/review/shop/shop-review';
+import {ReviewService} from 'src/app/_services/review/review.service';
+import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
 
 @Component({
   selector: 'app-shop-comment-approve',
@@ -15,6 +15,7 @@ export class ShopCommentApproveComponent implements OnInit {
   private roles: string[] = [];
   isAdmin = false;
   isLoggedIn = false;
+
   constructor(protected router: Router, private reviewService: ReviewService, private tokenStorageService: TokenStorageService) {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     console.log(this.isLoggedIn);
@@ -22,10 +23,11 @@ export class ShopCommentApproveComponent implements OnInit {
       this.roles = this.tokenStorageService.getUser().roles;
       console.log(this.roles);
       this.isAdmin = this.roles.includes('ROLE_ADMIN');
-    }}
+    }
+  }
 
   ngOnInit(): void {
-    this.reviewService.getShopReviewAdmin().subscribe(data=>{
+    this.reviewService.getShopReviewAdmin().subscribe(data => {
       this.reviews = data;
     });
   }
@@ -37,19 +39,21 @@ export class ShopCommentApproveComponent implements OnInit {
   BookApproveComment() {
     this.router.navigate(['admin/book/comments']);
   }
+
   ShopApproveComment() {
     this.router.navigate(['admin/shop/comments']);
   }
 
-  approveShop(review: ShopReview){
+  approveShop(review: ShopReview) {
     review.approved = true;
     console.log(review);
-    this.reviewService.saveShopReview(review).subscribe(()=>{
+    this.reviewService.saveShopReview(review).subscribe(() => {
       this.ngOnInit()
     });
-    
+
   }
-  editComment(reviewId: number, shopId: number){
+
+  editComment(reviewId: number, shopId: number) {
     this.router.navigate([`review/${reviewId}/shop/${shopId}`]);
   }
 }

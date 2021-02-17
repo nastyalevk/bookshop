@@ -1,29 +1,31 @@
 <div class="card-body">
-    <div *ngIf="isBookReview">
-        <div class="form-group" >
-            <label for="description">Edit book comment</label>
-            <textarea class="form-control" type="text" [(ngModel)]="bookReview.comment" id="comment" name="comment"
+  <div *ngIf="isBookReview">
+    <div class="form-group">
+      <label for="description">Edit book comment</label>
+      <textarea class="form-control" type="text" [(ngModel)]="bookReview.comment" id="comment" name="comment"
                 placeholder="Enter comment" required #description="ngModel"></textarea>
-        </div>
-        <div class="form-group" >
-            <button *ngIf = "isAdmin" type="submit" class="btn btn-info" (click)="saveBookReviewAdmin()">Approve</button>
-            <button *ngIf = "!isAdmin" type="submit" class="btn btn-info" (click)="saveBookReviewClient()">Save</button>
-            <button type="submit" class="btn btn-danger float-right" (click)="deleteBookReview()"><i
-                class="fa fa-trash" aria-hidden="true"></i> Delete</button>        
-        </div>
     </div>
-    <div *ngIf="isShopReview">
-        <div class="form-group">
-            <label for="description">Edit shop comment</label>
-            <textarea class="form-control" type="text" [(ngModel)]="shopReview.comment" id="comment" name="comment"
+    <div class="form-group">
+      <button *ngIf="isAdmin" type="submit" class="btn btn-info" (click)="saveBookReviewAdmin()">Approve</button>
+      <button *ngIf="!isAdmin" type="submit" class="btn btn-info" (click)="saveBookReviewClient()">Save</button>
+      <button type="submit" class="btn btn-danger float-right" (click)="deleteBookReview()"><i
+        class="fa fa-trash" aria-hidden="true"></i> Delete
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isShopReview">
+    <div class="form-group">
+      <label for="description">Edit shop comment</label>
+      <textarea class="form-control" type="text" [(ngModel)]="shopReview.comment" id="comment" name="comment"
                 placeholder="Enter comment" required #description="ngModel"></textarea>
-        </div>
-        <div class="form-group">
-            <button *ngIf = "isAdmin" type="submit" class="btn btn-info" (click)="saveShopReviewAdmin()">Approve</button>
-            <button *ngIf = "!isAdmin" type="submit" class="btn btn-info" (click)="saveShopReviewClient()">Save</button>
-            <button type="submit" class="btn btn-danger float-right" (click)="deleteShopReview()"><i
-                class="fa fa-trash" aria-hidden="true"></i> Delete</button>    
-        </div>
     </div>
+    <div class="form-group">
+      <button *ngIf="isAdmin" type="submit" class="btn btn-info" (click)="saveShopReviewAdmin()">Approve</button>
+      <button *ngIf="!isAdmin" type="submit" class="btn btn-info" (click)="saveShopReviewClient()">Save</button>
+      <button type="submit" class="btn btn-danger float-right" (click)="deleteShopReview()"><i
+        class="fa fa-trash" aria-hidden="true"></i> Delete
+      </button>
+    </div>
+  </div>
 
 </div>

@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { AgGridAngular } from 'ag-grid-angular';
-import { User } from 'src/app/model/user/user';
-import { UserService } from '../../_services/user/user.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {AgGridAngular} from 'ag-grid-angular';
+import {User} from 'src/app/model/user/user';
+import {UserService} from '../../_services/user/user.service';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
-import { _ } from 'ag-grid-community';
-import { TokenStorageService } from 'src/app/_services/token/token-storage.service';
+import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
 
 @Component({
   // selector: 'app-board-admin',
@@ -17,12 +16,12 @@ export class BoardAdminComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular | undefined;
 
   columnDefs = [
-    { field: 'id', sortable: true, filter: true, width: 100 },
-    { field: 'username', sortable: true, filter: true, width: 150 },
-    { field: 'email', sortable: true, filter: true },
-    { field: 'firstName', sortable: true, filter: true, width: 150 },
-    { field: 'lastName', sortable: true, filter: true, width: 175 },
-    { field: 'activated', sortable: true, filter: true, minWidth: 70, maxWidth: 90 },
+    {field: 'id', sortable: true, filter: true, width: 100},
+    {field: 'username', sortable: true, filter: true, width: 150},
+    {field: 'email', sortable: true, filter: true},
+    {field: 'firstName', sortable: true, filter: true, width: 150},
+    {field: 'lastName', sortable: true, filter: true, width: 175},
+    {field: 'activated', sortable: true, filter: true, minWidth: 70, maxWidth: 90},
     {
       field: 'roles', sortable: true, filter: true, valueGetter: ((params: { data: { roles: any; }; }) => {
         var result = '';
@@ -39,7 +38,7 @@ export class BoardAdminComponent implements OnInit {
   isLoggedIn = false;
 
   constructor(private userService: UserService, protected router: Router,
-    private tokenStorageService: TokenStorageService) {
+              private tokenStorageService: TokenStorageService) {
     this.row = [];
     this.rowData = new Array<User>();
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -60,6 +59,7 @@ export class BoardAdminComponent implements OnInit {
       );
     }
   }
+
   getSelectedRow() {
     if (this.isAdmin) {
       this.row = this.agGrid.api.getSelectedRows();
@@ -75,9 +75,11 @@ export class BoardAdminComponent implements OnInit {
       this.router.navigate(['new']);
     }
   }
+
   editUsers() {
     this.router.navigate(['admin']);
   }
+
   BookApproveComment() {
     this.router.navigate(['admin/book/comments']);
   }

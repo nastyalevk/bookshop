@@ -1,83 +1,84 @@
 <div class="card-body">
-    <div *ngIf="isAdmin">
-        <div class="form-group">
-            <ul class="nav nav-fill nav-pills justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link bg-secondary" (click)="editUsers()">All orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active bg-secondary" (click)="BookApproveComment()">Approve book comments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link bg-secondary" (click)="ShopApproveComment()">Approve shop comments</a>
-                </li>
-            </ul>
-        </div>
-        <div *ngIf="reviews.length">
+  <div *ngIf="isAdmin">
+    <div class="form-group">
+      <ul class="nav nav-fill nav-pills justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link bg-secondary" (click)="editUsers()">All orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active bg-secondary" (click)="BookApproveComment()">Approve book comments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bg-secondary" (click)="ShopApproveComment()">Approve shop comments</a>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="reviews.length">
 
-            <div class="form-group">
-                <table class="table table-hover">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Comment</th>
-                            <th scope="col">Rate</th>
-                            <th scope="col">Book ID</th>
-                            <th scope="col">Date</th>
-                            <th>Add</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="
+      <div class="form-group">
+        <table class="table table-hover">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Rate</th>
+            <th scope="col">Book ID</th>
+            <th scope="col">Date</th>
+            <th>Add</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="
             let review of reviews">
-                            <!-- | paginate : {
-                    itemsPerPage: pageSize,
-                    currentPage: page,
-                    totalItems: count
-                  };
-            let i = index
-          " [class.active]="i == currentIndex" (click)="setActiveBook(book, i)"> -->
-                            <td>{{ review.id }}</td>
-                            <td>{{ review.username }}</td>
-                            <td (click)="editComment(review.id, review.bookId)" class="ellipsis">{{ review.comment }}
-                            </td>
-                            <td>{{ review.rating }}</td>
-                            <td>{{ review.bookId }}</td>
-                            <td>{{ review.datetime }}</td>
-                            <td>
-                                <button type="submit" class="btn btn-info"
-                                    (click)="approveBook(review)">Approve</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- | paginate : {
+    itemsPerPage: pageSize,
+    currentPage: page,
+    totalItems: count
+  };
+let i = index
+" [class.active]="i == currentIndex" (click)="setActiveBook(book, i)"> -->
+            <td>{{ review.id }}</td>
+            <td>{{ review.username }}</td>
+            <td (click)="editComment(review.id, review.bookId)" class="ellipsis">{{ review.comment }}
+            </td>
+            <td>{{ review.rating }}</td>
+            <td>{{ review.bookId }}</td>
+            <td>{{ review.datetime }}</td>
+            <td>
+              <button type="submit" class="btn btn-info"
+                      (click)="approveBook(review)">Approve
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
 
-                <!-- <div class="row">
-            <div class="col-md-12">
-                Items per Page:
-                <select (change)="handlePageSizeChange($event)">
-                    <option *ngFor="let size of pageSizes" [ngValue]="size">
-                        {{ size }}
-                    </option>
-                </select>
-            </div>
-
-        </div>
-        <div class="col-md-10">
-            <div class="text-right">
-                <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-                    (pageChange)="handlePageChange($event)"></pagination-controls>
-            </div>
-        </div> -->
-            </div>
-        </div>
-
-        <div *ngIf="!reviews.length">
-            <h4 class="text-danger">No comments to approve</h4>
-        </div>
+        <!-- <div class="row">
+    <div class="col-md-12">
+        Items per Page:
+        <select (change)="handlePageSizeChange($event)">
+            <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+            </option>
+        </select>
     </div>
-    <div *ngIf="!isAdmin">
-        <h1 class="text-danger">You aren't admin</h1>
+
+</div>
+<div class="col-md-10">
+    <div class="text-right">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+            (pageChange)="handlePageChange($event)"></pagination-controls>
     </div>
+</div> -->
+      </div>
+    </div>
+
+    <div *ngIf="!reviews.length">
+      <h4 class="text-danger">No comments to approve</h4>
+    </div>
+  </div>
+  <div *ngIf="!isAdmin">
+    <h1 class="text-danger">You aren't admin</h1>
+  </div>
 </div>

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Shop } from 'src/app/model/shop/shop';
-import { ShopService } from 'src/app/_services/shop/shop.service';
-import { TokenStorageService } from 'src/app/_services/token/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Shop} from 'src/app/model/shop/shop';
+import {ShopService} from 'src/app/_services/shop/shop.service';
+import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
 
 @Component({
   selector: 'app-board-owner',
@@ -17,7 +17,7 @@ export class BoardOwnerComponent implements OnInit {
   isLoggedIn = false;
 
   constructor(private shopService: ShopService, protected router: Router,
-    private tokenStorageService: TokenStorageService) {
+              private tokenStorageService: TokenStorageService) {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     console.log(this.isLoggedIn);
     if (this.isLoggedIn) {

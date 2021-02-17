@@ -1,25 +1,27 @@
 <div class="card-body">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="jumbotron">
-                    <h1 class="display-3">{{shop.shopName}}</h1>
-                    <p class="lead">{{shop.address}}</p>
-                    <p class="lead">{{shop.city}}</p>
-                    <p class="lead">{{shop.country}}</p>
-                    <p><button  *ngIf="!isClient" type="button" class="btn btn-lg btn-success" (click)="goToLogin()"
-                            role="button">Sign up</button>
-                    </p>
-                    <button type="button" class="btn btn-primary" (click)=goToShopReview()>
-                        Show review
-                    </button>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr *ngFor="
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="jumbotron">
+          <h1 class="display-3">{{shop.shopName}}</h1>
+          <p class="lead">{{shop.address}}</p>
+          <p class="lead">{{shop.city}}</p>
+          <p class="lead">{{shop.country}}</p>
+          <p>
+            <button *ngIf="!isClient" type="button" class="btn btn-lg btn-success" (click)="goToLogin()"
+                    role="button">Sign up
+            </button>
+          </p>
+          <button type="button" class="btn btn-primary" (click)=goToShopReview()>
+            Show review
+          </button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <table class="table table-hover">
+            <tbody>
+            <tr *ngFor="
                 let book of books | paginate : {
                         itemsPerPage: pageSize,
                         currentPage: page,
@@ -27,35 +29,35 @@
                       };
                 let i = index
               " [class.active]="i == currentIndex" (click)="setActiveBook(book, i)">
-                                <td>{{ book.id }}</td>
-                                <td (click)="goToBookPersonalPage(book.id)">{{ book.bookName }}</td>
-                                <td>{{ book.author }}</td>
-                                <td>{{ book.genre }}</td>
-                                <td>{{ book.publicationYear }}</td>
+              <td>{{ book.id }}</td>
+              <td (click)="goToBookPersonalPage(book.id)">{{ book.bookName }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.genre }}</td>
+              <td>{{ book.publicationYear }}</td>
 
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        Items per Page:
-                        <select (change)="handlePageSizeChange($event)">
-                            <option *ngFor="let size of pageSizes" [ngValue]="size">
-                                {{ size }}
-                            </option>
-                        </select>
-                    </div>
-
-                </div>
-                <div class="col-md-10">
-                    <div class="text-right">
-                        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-                            (pageChange)="handlePageChange($event)"></pagination-controls>
-                    </div>
-                </div>
-
-            </div>
+            </tr>
+            </tbody>
+          </table>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            Items per Page:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+
+        </div>
+        <div class="col-md-10">
+          <div class="text-right">
+            <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                                 (pageChange)="handlePageChange($event)"></pagination-controls>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>

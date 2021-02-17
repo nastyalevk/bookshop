@@ -14,7 +14,8 @@
       </ul>
     </div>
     <ag-grid-angular #agGrid style="width: 100%; height: 550px;" class="ag-theme-alpine" [rowData]="rowData"
-      [columnDefs]="columnDefs" rowSelection="single" [paginationAutoPageSize]="true" [pagination]="true">
+                     [columnDefs]="columnDefs" rowSelection="single" [paginationAutoPageSize]="true"
+                     [pagination]="true">
     </ag-grid-angular>
     <button class="btn btn-primary btn-raised text-white float-right mt-3" (click)="getSelectedRow()">Edit</button>
     <button class="btn btn-primary btn-raised text-white float-left mt-3" (click)="addNew()">Add new</button>

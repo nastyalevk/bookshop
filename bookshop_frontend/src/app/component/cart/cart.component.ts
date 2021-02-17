@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Assortment } from 'src/app/model/assortment/assortment';
-import { Cart } from 'src/app/model/cart/cart';
-import { AssortmentService } from 'src/app/_services/assortment/assortment.service';
-import { CartService } from 'src/app/_services/cart/cart.service';
-import { ShopService } from 'src/app/_services/shop/shop.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Assortment} from 'src/app/model/assortment/assortment';
+import {Cart} from 'src/app/model/cart/cart';
+import {AssortmentService} from 'src/app/_services/assortment/assortment.service';
+import {CartService} from 'src/app/_services/cart/cart.service';
+import {ShopService} from 'src/app/_services/shop/shop.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,11 +13,11 @@ import { ShopService } from 'src/app/_services/shop/shop.service';
 })
 export class CartComponent implements OnInit {
   items: Cart[];
-  bookQuantity = [1, 2, 3, 4];
   fullPrice = 0;
   assortment: Assortment;
   isAvaliable: Map<string, boolean>;
   shopNames: string[] = [];
+
   constructor(private router: Router, private cartService: CartService, private assortmentService: AssortmentService, private shopService: ShopService) {
     this.items = this.cartService.toArray();
     this.assortment = new Assortment();
@@ -55,7 +55,7 @@ export class CartComponent implements OnInit {
     this.cartService.remove(item);
     this.ngOnInit();
   }
-  
+
   isOrderButton(): boolean {
     for (let [key, value] of this.isAvaliable) {
       if (!this.isAvaliable.get(key)) {
@@ -64,13 +64,12 @@ export class CartComponent implements OnInit {
     }
     return true
   }
-  isAvaliableSet() {
 
-  }
   isBookAvaliable(bookId: number, shopId: number) {
     console.log(this.isAvaliable)
     return this.isAvaliable.get(bookId.toString() + shopId.toString());
   }
+
   order() {
     this.router.navigate(['/order']);
   }
@@ -97,6 +96,7 @@ export class CartComponent implements OnInit {
     }
 
   }
+
   handlePlus(item: Cart) {
     item.quantity++;
     this.cartService.addToCart(item);

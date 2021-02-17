@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/model/user/user';
-import { UserService } from 'src/app/_services/user/user.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from 'src/app/model/user/user';
+import {UserService} from 'src/app/_services/user/user.service';
 
 @Component({
   selector: 'app-user',
@@ -14,6 +14,7 @@ export class UserComponent implements OnInit {
   roles: string[] = [];
   rolesChange: string[] = [];
   activatedFlag = 0;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -65,8 +66,7 @@ export class UserComponent implements OnInit {
     if (state) {
       this.roles.push(roleName);
       this.rolesChange.push(roleName + "-create");
-    }
-    else {
+    } else {
       this.roles = this.roles.filter(role => role != roleName);
       this.rolesChange.push(roleName + "-delete");
     }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-not-exist',
@@ -8,10 +8,12 @@ import { Router } from '@angular/router';
 })
 export class NotExistComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
   }
+
   onSubmit() {
     this.router.navigate(['/home']);
   }

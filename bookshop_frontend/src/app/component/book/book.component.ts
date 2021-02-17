@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { stat } from 'fs';
-import { AppComponent } from 'src/app/app.component';
-import { Assortment } from 'src/app/model/assortment/assortment';
-import { Book } from 'src/app/model/book/book';
-import { Cart } from 'src/app/model/cart/cart';
-import { BookReview } from 'src/app/model/review/book/book-review';
-import { Shop } from 'src/app/model/shop/shop';
-import { AssortmentService } from 'src/app/_services/assortment/assortment.service';
-import { BookService } from 'src/app/_services/book/book.service';
-import { CartService } from 'src/app/_services/cart/cart.service';
-import { ReviewService } from 'src/app/_services/review/review.service';
-import { ShopService } from 'src/app/_services/shop/shop.service';
-import { TokenStorageService } from 'src/app/_services/token/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import {AppComponent} from 'src/app/app.component';
+import {Assortment} from 'src/app/model/assortment/assortment';
+import {Book} from 'src/app/model/book/book';
+import {Cart} from 'src/app/model/cart/cart';
+import {BookReview} from 'src/app/model/review/book/book-review';
+import {Shop} from 'src/app/model/shop/shop';
+import {AssortmentService} from 'src/app/_services/assortment/assortment.service';
+import {BookService} from 'src/app/_services/book/book.service';
+import {CartService} from 'src/app/_services/cart/cart.service';
+import {ReviewService} from 'src/app/_services/review/review.service';
+import {ShopService} from 'src/app/_services/shop/shop.service';
+import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
 
 @Component({
   selector: 'app-book',
@@ -29,7 +28,7 @@ export class BookComponent implements OnInit {
   isCart: Map<string, boolean>;
   reviews: BookReview[] = [];
   review: BookReview;
-  isAvaliable = false;
+  isAvailable = false;
   assortments: Assortment[] = [];
   shopAssortment: Map<Assortment, Shop>;
   private roles: string[] = [];
@@ -46,9 +45,10 @@ export class BookComponent implements OnInit {
   ss = String(this.today.getSeconds());
 
   constructor(private route: ActivatedRoute, protected router: Router,
-    private bookService: BookService, private appComponent: AppComponent,
-    private cartService: CartService, private assortmentService: AssortmentService, private shopService: ShopService,
-    private reviewService: ReviewService, private tokenStorageService: TokenStorageService, private config: NgbRatingConfig) {
+              private bookService: BookService, private appComponent: AppComponent,
+              private cartService: CartService, private assortmentService: AssortmentService,
+              private shopService: ShopService, private reviewService: ReviewService,
+              private tokenStorageService: TokenStorageService, private config: NgbRatingConfig) {
     this.id = this.route.snapshot.params.id;
     this.book = new Book();
     this.isCart = new Map<string, boolean>();
@@ -76,13 +76,15 @@ export class BookComponent implements OnInit {
             this.shopService.getShop(i.shopId).subscribe(data => {
               this.shopAssortment.set(i, data);
               if (this.shopAssortment.keys()) {
-                this.isAvaliable = true;
+                this.isAvailable = true;
                 for (let j of this.shopAssortment.keys()) {
-                  this.minPrices.push(j.price);
+                  if (j.price != null) {
+                    this.minPrices.push(j.price);
+                  }
                 }
                 this.minPrice = this.minPrices.sort((n1, n2) => n1 - n2)[0];
               } else {
-                this.isAvaliable = false;
+                this.isAvailable = false;
               }
             });
           }
@@ -101,8 +103,7 @@ export class BookComponent implements OnInit {
       let key = "book_" + this.id.toString() + "_" + assortment.shopId;
       this.cartService.addToCart(new Cart(this.book, 1, assortment));
       this.isCart.set(key, true);
-    }
-    else {
+    } else {
       this.router.navigate(['/login']);
     }
   }
@@ -122,7 +123,9 @@ export class BookComponent implements OnInit {
   saveComment() {
     this.review.bookId = this.id;
     this.review.datetime = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
-    this.reviewService.saveBookReview(this.review).subscribe(() => { this.ngOnInit(); });
+    this.reviewService.saveBookReview(this.review).subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   isOpen(classification: string): boolean {
@@ -134,6 +137,7 @@ export class BookComponent implements OnInit {
     }
     return false;
   }
+
   editComment(reviewId: number) {
     this.router.navigate([`review/${reviewId}/book/${this.book.id}`]);
   }

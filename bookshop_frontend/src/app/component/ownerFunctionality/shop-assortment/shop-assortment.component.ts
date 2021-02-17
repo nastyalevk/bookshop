@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Book } from 'src/app/model/book/book';
-import { AssortmentService } from 'src/app/_services/assortment/assortment.service';
-import { BookService } from 'src/app/_services/book/book.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Book} from 'src/app/model/book/book';
+import {AssortmentService} from 'src/app/_services/assortment/assortment.service';
+import {BookService} from 'src/app/_services/book/book.service';
 
 @Component({
   selector: 'app-shop-assortment',
@@ -19,6 +19,7 @@ export class ShopAssortmentComponent implements OnInit {
   count = 0;
   pageSize = 9;
   pageSizes = [8, 12, 16];
+
   constructor(private route: ActivatedRoute, protected router: Router, private bookService: BookService, private assortmentService: AssortmentService) {
     this.id = this.route.snapshot.params.id;
   }
@@ -42,10 +43,11 @@ export class ShopAssortmentComponent implements OnInit {
   addBook() {
     this.router.navigate([`/shop/addBooks/${this.id}`]);
   }
+
   shopAssortment() {
     this.bookService.getBooksByShop(this.page, this.pageSize, this.id).subscribe(
       response => {
-        const { content, totalElements } = response.body;
+        const {content, totalElements} = response.body;
 
         this.books = content;
         this.count = totalElements;
@@ -55,13 +57,16 @@ export class ShopAssortmentComponent implements OnInit {
         console.log(error);
       });
   }
+
   goToBookPersonalPage(bookId: number) {
     this.router.navigate([`/shop/${this.id}/book/${bookId}`]);
   }
+
   setActiveBook(book: Book, index: number): void {
     this.currentBook = book;
     this.currentIndex = index;
   }
+
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.page = 1;

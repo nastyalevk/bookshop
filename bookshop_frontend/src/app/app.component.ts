@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from './_services/token/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from './_services/token/token-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   title(title: any) {
     throw new Error('Method not implemented.');
   }
+
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
   showClientBoard = false;
   username?: string | undefined;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService) {
+  }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -33,15 +35,19 @@ export class AppComponent implements OnInit {
       this.username = user.username;
     }
   }
+
   isAdmin() {
     return this.showAdminBoard;
   }
+
   isOwner() {
     return this.showOwnerBoard;
   }
+
   isClient() {
     return this.showClientBoard;
   }
+
   logout() {
     this.tokenStorageService.signOut();
     window.location.reload();

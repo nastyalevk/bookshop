@@ -1,76 +1,76 @@
 <div class="card-body">
-    <div class="container">
-        <div class="form-group">
-            <ul class="nav nav-fill nav-pills justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link bg-secondary" (click)="getAllOrders()">All orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  bg-secondary" (click)="editShop()">Edit shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active bg-secondary" (click)="addNewBook()">Add new book</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  bg-secondary" (click)="addBook()">Add existent book</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  bg-secondary" (click)="shopAssortment()">Shop assortment</a>
-                </li>
-            </ul>
-        </div>
-        <div class="form-group">
-            <form #bookForm="ngForm">
-                <div class="form-group">
-                    <label for="bookName">Book name</label>
-                    <input [(ngModel)]="book.bookName" name="bookName" class="form-control" id="bookName"
-                        placeholder="{{book.bookName}}">
-                </div>
-                <div class="form-group">
-                    <label for="author">Author</label>
-                    <input [(ngModel)]="book.author" name="author" class="form-control" id="author"
-                        placeholder="{{book.author}}">
-                </div>
-                <div class="form-group">
-                    <label for="genre">Genre</label>
-                    <input [(ngModel)]="book.genre" name="genre" class="form-control" id="genre"
-                        placeholder="{{book.genre}}">
-                </div>
-                <div class="form-group">
-                    <label for="publicationYear">Publication year</label>
-                    <input [(ngModel)]="book.publicationYear" name="publicationYear" class="form-control"
-                        id="publicationYear" placeholder="{{book.publicationYear}}">
-                </div>
-                <div class="form-group">
-                    <label for="pages">Pages</label>
-                    <input [(ngModel)]="book.pages" name="pages" class="form-control" id="pages"
-                        placeholder="{{book.pages}}">
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea [(ngModel)]="book.description" name="description" class="form-control" id="description"
-                        placeholder="">{{book.description}}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantity</label>
-                    <input [(ngModel)]="assortment.quantity" name="quantity" class="form-control" id="quantity"
-                        placeholder="{{assortment.quantity}}">
-                </div>
-                <div class="form-group">
-                    <label for="price">Price</label>
-                    <input [(ngModel)]="assortment.price" name="price" class="form-control" id="price"
-                        placeholder="{{assortment.price}}">
-                </div>
-                <div class="form-group">
-                    <label for="assortment.classification">Status:</label>
-                    <select [(ngModel)]="assortment.classification" name="classification" class="form-control">
-                        <option *ngFor="let classification of classifications" [ngValue]="classification">
-                            {{ classification }}
-                        </option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-info" (click)="onSubmitBook()">Save</button>
-            </form>
-        </div>
+  <div class="container">
+    <div class="form-group">
+      <ul class="nav nav-fill nav-pills justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link bg-secondary" (click)="getAllOrders()">All orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  bg-secondary" (click)="editShop()">Edit shop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active bg-secondary" (click)="addNewBook()">Add new book</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  bg-secondary" (click)="addBook()">Add existent book</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  bg-secondary" (click)="shopAssortment()">Shop assortment</a>
+        </li>
+      </ul>
     </div>
+    <div class="form-group">
+      <form #bookForm="ngForm">
+        <div class="form-group">
+          <label for="bookName">Book name</label>
+          <input [(ngModel)]="book.bookName" name="bookName" class="form-control" id="bookName"
+                 placeholder="{{book.bookName}}">
+        </div>
+        <div class="form-group">
+          <label for="author">Author</label>
+          <input [(ngModel)]="book.author" name="author" class="form-control" id="author"
+                 placeholder="{{book.author}}">
+        </div>
+        <div class="form-group">
+          <label for="genre">Genre</label>
+          <input [(ngModel)]="book.genre" name="genre" class="form-control" id="genre"
+                 placeholder="{{book.genre}}">
+        </div>
+        <div class="form-group">
+          <label for="publicationYear">Publication year</label>
+          <input [(ngModel)]="book.publicationYear" name="publicationYear" class="form-control"
+                 id="publicationYear" placeholder="{{book.publicationYear}}">
+        </div>
+        <div class="form-group">
+          <label for="pages">Pages</label>
+          <input [(ngModel)]="book.pages" name="pages" class="form-control" id="pages"
+                 placeholder="{{book.pages}}">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea [(ngModel)]="book.description" name="description" class="form-control" id="description"
+                    placeholder="">{{book.description}}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input [(ngModel)]="assortment.quantity" name="quantity" class="form-control" id="quantity"
+                 placeholder="{{assortment.quantity}}">
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input [(ngModel)]="assortment.price" name="price" class="form-control" id="price"
+                 placeholder="{{assortment.price}}">
+        </div>
+        <div class="form-group">
+          <label for="assortment.classification">Status:</label>
+          <select [(ngModel)]="assortment.classification" name="classification" class="form-control">
+            <option *ngFor="let classification of classifications" [ngValue]="classification">
+              {{ classification }}
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-info" (click)="onSubmitBook()">Save</button>
+      </form>
+    </div>
+  </div>
 </div>

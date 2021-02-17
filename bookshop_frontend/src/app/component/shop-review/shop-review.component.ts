@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ShopReview } from 'src/app/model/review/shop/shop-review';
-import { Shop } from 'src/app/model/shop/shop';
-import { ReviewService } from 'src/app/_services/review/review.service';
-import { ShopService } from 'src/app/_services/shop/shop.service';
-import { TokenStorageService } from 'src/app/_services/token/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import {ShopReview} from 'src/app/model/review/shop/shop-review';
+import {Shop} from 'src/app/model/shop/shop';
+import {ReviewService} from 'src/app/_services/review/review.service';
+import {ShopService} from 'src/app/_services/shop/shop.service';
+import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
 
 @Component({
   selector: 'app-shop-review',
@@ -18,7 +18,7 @@ export class ShopReviewComponent implements OnInit {
   isClient = false;
   private roles: string[] = [];
   isLoggedIn = false;
-  currentUser= "";
+  currentUser = "";
   reviews: ShopReview[] = [];
   review: ShopReview;
 
@@ -31,7 +31,7 @@ export class ShopReviewComponent implements OnInit {
   ss = String(this.today.getSeconds());
 
   constructor(private route: ActivatedRoute, protected router: Router, private reviewService: ReviewService,
-    private shopService: ShopService, private tokenStorageService: TokenStorageService, private config: NgbRatingConfig) {
+              private shopService: ShopService, private tokenStorageService: TokenStorageService, private config: NgbRatingConfig) {
     this.shopId = this.route.snapshot.params.shopId;
     this.shop = new Shop();
     this.roles = this.tokenStorageService.getUser().roles;
@@ -54,6 +54,7 @@ export class ShopReviewComponent implements OnInit {
       this.reviews = data;
     });
   }
+
   goToLogin() {
     this.router.navigate([`/login`]);
   }
@@ -61,14 +62,17 @@ export class ShopReviewComponent implements OnInit {
   goToShopAssortment() {
     this.router.navigate([`/shop/page/${this.shopId}/`]);
   }
+
   saveComment() {
     this.review.shopId = this.shopId;
     this.review.datetime = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
     console.log(this.review);
-    this.reviewService.saveShopReview(this.review).subscribe(()=>{this.ngOnInit()});
+    this.reviewService.saveShopReview(this.review).subscribe(() => {
+      this.ngOnInit()
+    });
   }
 
-  editComment(reviewId: number){
+  editComment(reviewId: number) {
     this.router.navigate([`review/${reviewId}/shop/${this.shop.id}`]);
   }
 }

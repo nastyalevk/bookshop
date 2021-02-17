@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Book } from '../../model/book/book';
-import { BookService } from 'src/app/_services/book/book.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Book} from '../../model/book/book';
+import {BookService} from 'src/app/_services/book/book.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   currentIndex = -1;
   bookName = '';
   sort: string;
-  sorts :Map<String, String>;
+  sorts: Map<String, String>;
 
   page = 1;
   count = 0;
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     this.bookService.getAll(this.bookName, this.page, this.pageSize, this.sort)
       .subscribe(
         response => {
-          const { content, totalElements } = response.body;
+          const {content, totalElements} = response.body;
 
           this.books = content;
           this.count = totalElements;
@@ -70,13 +70,12 @@ export class HomeComponent implements OnInit {
     if (this.sorts.has(column)) {
       this.sorts.delete(column);
       this.sorts.set(column, "asc");
-    }
-    else {
+    } else {
       this.sorts.set(column, "desc");
     }
     this.sort = '';
-    for(let [key, value] of this.sorts){
-      this.sort +="," +  key + "_"+ value;
+    for (let [key, value] of this.sorts) {
+      this.sort += "," + key + "_" + value;
     }
     this.sort = this.sort.slice(1, this.sort.length);
     this.retrieveBooks();

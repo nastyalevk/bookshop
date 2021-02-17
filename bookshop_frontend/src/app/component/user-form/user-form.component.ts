@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Role } from 'src/app/model/role/role';
-import { User } from 'src/app/model/user/user';
-import { AuthService } from 'src/app/_services/auth/auth.service';
-import { UserService } from 'src/app/_services/user/user.service';
-import { NgbdModalContentComponent } from '../ngbd-modal-content/ngbd-modal-content.component';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Role} from 'src/app/model/role/role';
+import {User} from 'src/app/model/user/user';
+import {AuthService} from 'src/app/_services/auth/auth.service';
+import {NgbdModalContentComponent} from '../ngbd-modal-content/ngbd-modal-content.component';
 
 @Component({
   selector: 'app-user-form',
@@ -29,11 +28,11 @@ export class UserFormComponent {
     this.user.roles = this.rolesToEntity();
     console.log(this.user);
     this.authService.newUser(this.user.username, this.user.email).subscribe(
-    () => this.gotoUserList(), 
-    err => {
-      const modalRef = this.modalService.open(NgbdModalContentComponent);
-      modalRef.componentInstance.message = err.error.message;
-    });
+      () => this.gotoUserList(),
+      err => {
+        const modalRef = this.modalService.open(NgbdModalContentComponent);
+        modalRef.componentInstance.message = err.error.message;
+      });
   }
 
   gotoUserList() {
@@ -75,8 +74,7 @@ export class UserFormComponent {
   changeRoleStatusClient(state: boolean) {
     if (state) {
       this.roles.push("ROLE_CLIENT");
-    }
-    else {
+    } else {
       this.roles = this.roles.filter(role => role != "ROLE_CLIENT");
       console.log(this.roles);
     }
@@ -105,8 +103,7 @@ export class UserFormComponent {
     console.log(this.roles);
     if (state) {
       this.roles.push(roleName);
-    }
-    else {
+    } else {
       this.roles = this.roles.filter(role => role != roleName);
     }
   }

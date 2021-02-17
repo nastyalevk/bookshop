@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Book } from 'src/app/model/book/book';
-import { Shop } from 'src/app/model/shop/shop';
-import { BookService } from 'src/app/_services/book/book.service';
-import { ShopService } from 'src/app/_services/shop/shop.service';
-import { TokenStorageService } from 'src/app/_services/token/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Book} from 'src/app/model/book/book';
+import {Shop} from 'src/app/model/shop/shop';
+import {BookService} from 'src/app/_services/book/book.service';
+import {ShopService} from 'src/app/_services/shop/shop.service';
+import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
 
 @Component({
   selector: 'app-shop-personal-page',
@@ -28,7 +28,7 @@ export class ShopPersonalPageComponent implements OnInit {
   pageSizes = [5, 10, 15];
 
   constructor(private route: ActivatedRoute, protected router: Router, private bookService: BookService,
-    private shopService: ShopService, private tokenStorageService: TokenStorageService) {
+              private shopService: ShopService, private tokenStorageService: TokenStorageService) {
     this.shopId = this.route.snapshot.params.shopId;
     this.shop = new Shop();
     this.roles = this.tokenStorageService.getUser().roles;
@@ -51,7 +51,7 @@ export class ShopPersonalPageComponent implements OnInit {
   shopAssortment() {
     this.bookService.getBooksByShop(this.page, this.pageSize, this.shopId).subscribe(
       response => {
-        const { content, totalElements } = response.body;
+        const {content, totalElements} = response.body;
 
         this.books = content;
         this.count = totalElements;

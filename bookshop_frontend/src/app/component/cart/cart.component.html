@@ -1,66 +1,67 @@
 <div class="card-body">
-    <div class="container">
-        <h4 *ngIf="!items.length">No items in cart</h4>
-        <table *ngIf="items.length" class="table table-hover shopping-cart-wrap">
-            <thead class="text-muted">
-                <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col" width="140">Quantity</th>
-                    <th scope="col" width="120">Price</th>
-                    <th scope="col" width="200" class="text-right">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="
+  <div class="container">
+    <h4 *ngIf="!items.length">No items in cart</h4>
+    <table *ngIf="items.length" class="table table-hover shopping-cart-wrap">
+      <thead class="text-muted">
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col" width="140">Quantity</th>
+        <th scope="col" width="120">Price</th>
+        <th scope="col" width="200" class="text-right">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="
                 let item of items;  let i = index">
-                    <td>
-                        <figure class="media">
-                            <figcaption class="media-body">
-                                <h6 class="title text-truncate">{{item.book.bookName}} </h6>
-                                <dl class="param param-inline small">
-                                    <dt>Author: </dt>
-                                    <dd>{{item.book.author}}</dd>
-                                </dl>
-                                <h6 class="title text-truncate">Shop: {{shopNames[i]}} </h6>
-                                <div *ngIf="!isBookAvaliable(item.book.id, item.assortment.shopId)">
-                                    <h6 class="title text-danger">Isnt avaliable in this quantity</h6>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </td>
-                    <td>
-                        <div class="input-group spinner">
-                            <input class="form-control" [(ngModel)]="item.quantity" name="item.quantity" value="1"
-                                min="0">
-                            <div class="input-group-btn-vertical">
-                                <button class="btn btn-primary btn-sm" type="button" (click)="handlePlus(item)"><i
-                                        class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-primary btn-sm" type="button" (click)="handleMinus(item)"><i
-                                        class="fa fa-caret-down"></i></button>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="price-wrap">
-                            <var class="price">USD {{item.assortment.price}}</var>
-                            <h6 class="title text-truncate">Full price: ${{item.assortment.price * item.quantity}}</h6>
-                        </div>
-                    </td>
-                    <td class="text-right">
-                        <a (click)="remove(item)" class="btn btn-outline-danger"><i class="fa fa-trash"
-                                aria-hidden="true"></i> Remove</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <h5 *ngIf="items.length">Full price: ${{fullPrice}}</h5>
-        <div *ngIf="isOrderButton()">
-            <button class="btn btn-primary btn-raised text-white float-right mt-3" *ngIf="items.length"
-                (click)="order()">
-                Make an
-                order</button>
-        </div>
-
-
+        <td>
+          <figure class="media">
+            <figcaption class="media-body">
+              <h6 class="title text-truncate">{{item.book.bookName}} </h6>
+              <dl class="param param-inline small">
+                <dt>Author:</dt>
+                <dd>{{item.book.author}}</dd>
+              </dl>
+              <h6 class="title text-truncate">Shop: {{shopNames[i]}} </h6>
+              <div *ngIf="!isBookAvaliable(item.book.id, item.assortment.shopId)">
+                <h6 class="title text-danger">Isnt avaliable in this quantity</h6>
+              </div>
+            </figcaption>
+          </figure>
+        </td>
+        <td>
+          <div class="input-group spinner">
+            <input class="form-control" [(ngModel)]="item.quantity" name="item.quantity" value="1"
+                   min="0">
+            <div class="input-group-btn-vertical">
+              <button class="btn btn-primary btn-sm" type="button" (click)="handlePlus(item)"><i
+                class="fa fa-caret-up"></i></button>
+              <button class="btn btn-primary btn-sm" type="button" (click)="handleMinus(item)"><i
+                class="fa fa-caret-down"></i></button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="price-wrap">
+            <var class="price">USD {{item.assortment.price}}</var>
+            <h6 class="title text-truncate">Full price: ${{item.assortment.price * item.quantity}}</h6>
+          </div>
+        </td>
+        <td class="text-right">
+          <a (click)="remove(item)" class="btn btn-outline-danger"><i class="fa fa-trash"
+                                                                      aria-hidden="true"></i> Remove</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <h5 *ngIf="items.length">Full price: ${{fullPrice}}</h5>
+    <div *ngIf="isOrderButton()">
+      <button class="btn btn-primary btn-raised text-white float-right mt-3" *ngIf="items.length"
+              (click)="order()">
+        Make an
+        order
+      </button>
     </div>
+
+
+  </div>
 </div>
