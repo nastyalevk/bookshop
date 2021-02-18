@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 9;
-  pageSizes = [9, 12, 15];
+  pageSize = 8;
+  pageSizes = [8, 12, 15];
 
   constructor(private bookService: BookService, protected router: Router) {
     this.sort = "";

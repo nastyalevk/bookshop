@@ -5,6 +5,7 @@ import {Book} from 'src/app/model/book/book';
 import {Order} from 'src/app/model/order/order';
 import {OrderContent} from 'src/app/model/orderContent/order-content';
 import {BookService} from 'src/app/_services/book/book.service';
+import { DateFormatterService } from 'src/app/_services/formatter/date-formatter.service';
 import {OrderService} from 'src/app/_services/order/order.service';
 import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
 import {NgbdModalContentComponent} from '../../ngbd-modal-content/ngbd-modal-content.component';
@@ -34,7 +35,7 @@ export class EditOrderComponent implements OnInit {
 
   constructor(private orderService: OrderService, private route: ActivatedRoute, protected router: Router,
               private bookService: BookService, private tokenStorageService: TokenStorageService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal, private dateFormatter: DateFormatterService) {
     this.orderId = this.route.snapshot.params.orderId;
     this.order = new Order();
     this.roles = this.tokenStorageService.getUser().roles;
@@ -75,10 +76,7 @@ export class EditOrderComponent implements OnInit {
 
   saveOrder() {
     if (this.model) {
-      this.dd = this.model.day;
-      this.mm = this.model.month;
-      this.yyyy = this.model.year;
-      this.order.orderCompleteDate = this.mm + '-' + this.dd + '-' + this.yyyy;
+      this.order.orderCompleteDate = this.dateFormatter.formatDate(this.model);
     }
     this.orderService.saveOrder(this.order).subscribe(data => {
         this.order = data;

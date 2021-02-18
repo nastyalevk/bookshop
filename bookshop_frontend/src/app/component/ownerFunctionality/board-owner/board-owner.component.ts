@@ -45,4 +45,9 @@ export class BoardOwnerComponent implements OnInit {
       this.router.navigate([`orders/shop/${id}`]);
     }
   }
+  getStats(shopId: number){
+    if (this.isOwner) {
+      this.router.navigate([`shop/${shopId}/stat/proceed`]);
+    }
+  }
 }

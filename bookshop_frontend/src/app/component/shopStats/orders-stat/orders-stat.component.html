@@ -1,0 +1,30 @@
+<div class="card-body">
+    <div class="container">
+        <div class="form-group">
+            <ul class="nav nav-fill nav-pills justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link  bg-secondary" (click)="getProceedStat()">Proceed stat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active bg-secondary">Orders stat</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Status</th>
+                        <th scope="col">Amound</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of info">
+                        <td >{{ i[0] }}</td>
+                        <td >{{ i[1] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

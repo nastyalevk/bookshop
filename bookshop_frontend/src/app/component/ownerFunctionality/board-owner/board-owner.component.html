@@ -14,6 +14,7 @@
             <th scope="col">City</th>
             <th scope="col">Address</th>
             <th scope="col">Status</th>
+            <th scope="col">Get stats</th>
           </tr>
           </thead>
           <tbody>
@@ -23,7 +24,10 @@
             <td>{{ shop.country }}</td>
             <td>{{ shop.city }}</td>
             <td>{{ shop.address }}</td>
-            <td>{{ shop.classificationStatus }}</td>
+            <td>{{ shop.classification }}</td>
+            <td><button type="submit" class="btn btn-outline-secondary"
+                    (click)="getStats(shop.id)">Get stats
+            </button></td>
           </tr>
           </tbody>
         </table>

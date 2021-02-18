@@ -38,6 +38,9 @@ import {ShopCommentApproveComponent} from './component/comment-approve/shop-comm
 import {EditCommentComponent} from './component/comment-approve/edit-comment/edit-comment.component';
 import {NotExistComponent} from './component/not-exist/not-exist.component';
 import {NgbdModalContentComponent} from './component/ngbd-modal-content/ngbd-modal-content.component';
+import { ShopListComponent } from './component/shop-list/shop-list.component';
+import { ProceedStatComponent } from './component/shopStats/proceed-stat/proceed-stat.component';
+import { OrdersStatComponent } from './component/shopStats/orders-stat/orders-stat.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,10 @@ import {NgbdModalContentComponent} from './component/ngbd-modal-content/ngbd-mod
     ShopCommentApproveComponent,
     EditCommentComponent,
     NotExistComponent,
-    NgbdModalContentComponent
+    NgbdModalContentComponent,
+    ShopListComponent,
+    ProceedStatComponent,
+    OrdersStatComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,41 @@
+<div class="card-body">
+    <div class="container">
+        <div class="form-group">
+        <ul class="nav nav-fill nav-pills justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active bg-secondary">Proceed stat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  bg-secondary" (click)="getOrderStat()">Orders stat</a>
+            </li>
+        </ul>
+    </div>
+    <h3>Select dates from/to</h3>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <div class="input-group">
+                    <input class="form-control input-sm" placeholder="not defined" name="fromDate"
+                        [(ngModel)]="fromDate" ngbDatepicker #d1="ngbDatepicker">
+                    <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"><i
+                            class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    <input class="form-control input-sm" placeholder="not defined" name="toDate" [(ngModel)]="toDate"
+                        ngbDatepicker #d2="ngbDatepicker">
+                    <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"><i
+                            class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary float-right" (click)="getStat()">Get stats</button>
+    </div>
+    <div class="form-group" *ngIf="isThereStat">
+        <h4>Proceed: ${{result}}</h4>
+    </div>
+</div>
+</div>

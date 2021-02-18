@@ -18,7 +18,8 @@ export class CartComponent implements OnInit {
   isAvaliable: Map<string, boolean>;
   shopNames: string[] = [];
 
-  constructor(private router: Router, private cartService: CartService, private assortmentService: AssortmentService, private shopService: ShopService) {
+  constructor(private router: Router, private cartService: CartService, private assortmentService: AssortmentService, 
+    private shopService: ShopService) {
     this.items = this.cartService.toArray();
     this.assortment = new Assortment();
     this.isAvaliable = new Map<string, boolean>();

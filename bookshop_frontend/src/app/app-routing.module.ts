@@ -29,6 +29,9 @@ import {BookCommentApproveComponent} from './component/comment-approve/book-comm
 import {ShopCommentApproveComponent} from './component/comment-approve/shop-comment-approve/shop-comment-approve.component';
 import {EditCommentComponent} from './component/comment-approve/edit-comment/edit-comment.component';
 import {NotExistComponent} from './component/not-exist/not-exist.component';
+import { ShopListComponent } from './component/shop-list/shop-list.component';
+import { ProceedStatComponent } from './component/shopStats/proceed-stat/proceed-stat.component';
+import { OrdersStatComponent } from './component/shopStats/orders-stat/orders-stat.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -61,6 +64,9 @@ const routes: Routes = [
   {path: 'review/:reviewId/shop/:shopId', component: EditCommentComponent},
   {path: 'review/:reviewId/book/:bookId', component: EditCommentComponent},
   {path: 'error', component: NotExistComponent},
+  {path: 'shops', component: ShopListComponent},
+  {path: 'shop/:shopId/stat/proceed', component: ProceedStatComponent},
+  {path: 'shop/:shopId/stat/orders', component: OrdersStatComponent},
   {path: '**', redirectTo: 'home', pathMatch: 'full'},
   {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];

@@ -1,0 +1,22 @@
+<div class="card-body">
+    <div class="container">
+        <div class="form-group">
+            <h3>All shops</h3>
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of info">
+                        <td (click)=gotoShop(i[0])>{{ i[1] }}</td>
+                        <td *ngIf="i[2]!=-1" (click)=gotoShop(i[0])>{{ i[2] }}</td>
+                        <td *ngIf="i[2]==-1" (click)=gotoShop(i[0])>not rated</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

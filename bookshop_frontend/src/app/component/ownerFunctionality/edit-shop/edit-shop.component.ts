@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Shop} from 'src/app/model/shop/shop';
 import {ShopService} from 'src/app/_services/shop/shop.service';
+import { TokenStorageService } from 'src/app/_services/token/token-storage.service';
 import {NgbdModalContentComponent} from '../../ngbd-modal-content/ngbd-modal-content.component';
 
 @Component({
@@ -14,12 +15,14 @@ export class EditShopComponent implements OnInit {
 
   id: number;
   shop: Shop;
+  username: string;
   classifications = ["OPEN", "CLOSED", "TERMINATED"];
 
   constructor(private route: ActivatedRoute, protected router: Router, private shopService: ShopService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal, private tokenStorage: TokenStorageService) {
     this.id = this.route.snapshot.params.id;
     this.shop = new Shop();
+    this.username = this.tokenStorage.getUser().username;
 
   }
 

@@ -24,8 +24,8 @@ export class ShopPersonalPageComponent implements OnInit {
   currentIndex = -1;
   page = 1;
   count = 0;
-  pageSize = 5;
-  pageSizes = [5, 10, 15];
+  pageSize = 6;
+  pageSizes = [6, 10, 15];
 
   constructor(private route: ActivatedRoute, protected router: Router, private bookService: BookService,
               private shopService: ShopService, private tokenStorageService: TokenStorageService) {

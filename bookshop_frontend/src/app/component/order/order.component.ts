@@ -5,6 +5,7 @@ import {Cart} from 'src/app/model/cart/cart';
 import {Order} from 'src/app/model/order/order';
 import {OrderContent} from 'src/app/model/orderContent/order-content';
 import {CartService} from 'src/app/_services/cart/cart.service';
+import { DateFormatterService } from 'src/app/_services/formatter/date-formatter.service';
 import {OrderService} from 'src/app/_services/order/order.service';
 import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
 import {NgbdModalContentComponent} from '../ngbd-modal-content/ngbd-modal-content.component';
@@ -34,7 +35,8 @@ export class OrderComponent implements OnInit {
   ss = String(this.today.getSeconds());
 
   constructor(private router: Router, private cartService: CartService,
-              private tokenStorage: TokenStorageService, private orderService: OrderService, private modalService: NgbModal) {
+              private tokenStorage: TokenStorageService, private orderService: OrderService, 
+              private modalService: NgbModal, private dateFormatter: DateFormatterService) {
     this.items = this.cartService.toArray();
     this.order.cost = 0;
     this.orderContent = new OrderContent();
@@ -102,13 +104,10 @@ export class OrderComponent implements OnInit {
     this.order.orderSubmitDate = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
     this.order.shopId = shopId;
     if (this.model) {
-      this.dd = String(this.model.day);
-      this.mm = String(this.model.month);
-      this.yyyy = String(this.model.year);
       this.hh = "00";
       this.MM = "00";
       this.ss = "00";
-      this.order.orderCompleteDate = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
+      this.order.orderCompleteDate = this.dateFormatter.formatDate(this.model) + " " + this.hh + ":" + this.MM + ":" + this.ss;
     } else {
       this.order.orderCompleteDate = this.yyyy + "-" + this.mm + "-" + this.ddnew + " " + this.hh + ":" + this.MM + ":" + this.ss;
     }

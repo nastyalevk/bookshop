@@ -43,7 +43,7 @@
           <td>{{ book.id }}</td>
           <td>{{ book.bookName }}</td>
           <td>{{ book.author }}</td>
-          <td>{{ book.genre }}</td>
+          <td  class="ellipsis">{{ book.genre }}</td>
           <td>{{ book.publicationYear }}</td>
           <td>
             <button *ngIf="!isBookInShop(book.id)" type="submit" class="btn btn-info"
