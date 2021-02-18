@@ -9,7 +9,7 @@ public interface StatisticsService {
 
     ResponseEntity<Long> allProceedByShop(Integer shopId, String beginning, String ending);
 
-    Map getTopShops();
+    List getTopShops();
 
     List getOrdersStats(Integer shopId);
 

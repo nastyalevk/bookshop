@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/stat")
@@ -30,7 +29,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/shops")
-    public ResponseEntity<Map> getTopShops() {
+    public ResponseEntity<List> getTopShops() {
         return new ResponseEntity<>(statisticsService.getTopShops(), HttpStatus.OK);
     }
 

@@ -38,8 +38,8 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
-    public Map getTopShops() {
-        return restTemplate.getForObject(UrlConst.StatsUrl+"shops/", Map.class);
+    public List getTopShops() {
+        return restTemplate.getForObject(UrlConst.StatsUrl+"shops/", List.class);
     }
 
     @Override

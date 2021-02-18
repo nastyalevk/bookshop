@@ -67,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/book/create").hasRole("OWNER")
                 .antMatchers("/stat/proceed/**").hasRole("OWNER")
                 .antMatchers("/stat/shop/order/{shopId}").hasRole("OWNER")
+                .antMatchers("/stat/shops").permitAll()
                 .antMatchers("/book/update").hasRole("OWNER")
                 .antMatchers("/shop/create").hasRole("OWNER")
                 .antMatchers("/shop/username").hasRole("OWNER")

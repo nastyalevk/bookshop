@@ -31,7 +31,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/shops")
-    public ResponseEntity<Map> getTopShops() {
+    public ResponseEntity<List<Object[]>> getTopShops() {
         return new ResponseEntity<>(statisticsService.getTopShops(), HttpStatus.OK);
     }
 

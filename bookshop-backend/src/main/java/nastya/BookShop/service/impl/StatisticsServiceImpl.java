@@ -1,5 +1,6 @@
 package nastya.BookShop.service.impl;
 
+import nastya.BookShop.config.DateFormatter;
 import nastya.BookShop.service.api.StatisticsService;
 import org.springframework.stereotype.Service;
 
@@ -32,44 +33,29 @@ public class StatisticsServiceImpl implements StatisticsService {
                         "AND s.id=?1 \n" +
                         "GROUP BY s.id", Long.class)
                 .setParameter(1, shopId)
-                .setParameter(2, new SimpleDateFormat("yyyy-MM-dd")
-                        .parse(beginning))
-                .setParameter(3, new SimpleDateFormat("yyyy-MM-dd")
-                        .parse(ending)).getSingleResult();
+                .setParameter(2, new DateFormatter().formatString(beginning))
+                .setParameter(3,  new DateFormatter().formatString(ending)).getSingleResult();
         return proceed;
     }
 
     @Override
-    public Map getTopShops() {
-        Map<Integer, Integer> top = entityManager.createQuery(
-                "SELECT s.id as shopId, COALESCE(SUM(rrs.rating), -1) as sumRateing\n" +
+    public List<Object[]> getTopShops() {
+        List<Object[]> top = entityManager.createQuery(
+                "SELECT s.id as shopId, s.shopName, COALESCE(SUM(rrs.rating), -1) as sumRateing\n" +
                         "FROM ShopReview rrs RIGHT JOIN Shop s ON rrs.shop.id = s.id \n" +
-                        "GROUP BY s.id", Tuple.class)
-                .getResultList()
-                .stream()
-                .collect(
-                        Collectors.toMap(
-                                tuple -> ((Number) tuple.get("shopId")).intValue(),
-                                tuple -> ((Number) tuple.get("sumRateing")).intValue()
-                        ));
-        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(top.entrySet());
-        list.sort(reverseOrder(Map.Entry.comparingByValue()));
-
-        Map<Integer, Integer> result = new LinkedHashMap<>();
-        for (Map.Entry<Integer, Integer> entry : list) {
-            result.put(entry.getKey(), entry.getValue());
-        }
-        return result;
+                        "GROUP BY s.id " +
+                        "ORDER BY sumRateing DESC")
+                .getResultList();
+        return top;
     }
 
     @Override
     public List getOrdersStats(Integer shopId) {
-        List stats = entityManager.createQuery(
-                "SELECT o.shop.shopName , o.classification.name , COUNT(o.id ) \n" +
+        List<Object[]> stats = entityManager.createQuery(
+                "SELECT o.classification.name , COUNT(o.id ) \n" +
                 "FROM Order o \n" +
                 "WHERE o.shop.id = ?1\n" +
-                "GROUP BY o.shop.id, o.classification.id \n")
-                .setParameter(1, shopId)
+                "GROUP BY o.classification.id  \n").setParameter(1, shopId)
                 .getResultList();
         return stats;
     }
