@@ -1,5 +1,6 @@
 package nastya.BookShop.controller;
 
+import nastya.BookShop.dto.response.PageResponse;
 import nastya.BookShop.dto.user.UserDto;
 import nastya.BookShop.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,9 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<UserDto>> findAll() {
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    public ResponseEntity<PageResponse<UserDto>> findAll(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "3") int size) {
+        return new ResponseEntity<>(userService.findAll(page, size), HttpStatus.OK);
     }
 
     @PostMapping(path = "/create")

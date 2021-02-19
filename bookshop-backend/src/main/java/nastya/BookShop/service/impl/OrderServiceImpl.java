@@ -105,11 +105,11 @@ public class OrderServiceImpl implements OrderService {
         order.setShop(shopRepository.getShopById(orderDto.getShopId()));
         order.setDeliveryAddress(orderDto.getDeliveryAddress());
         order.setDescription(orderDto.getDescription());
-        order.setOrderSubmitDate(new DateFormatter().formatDate(orderDto.getOrderSubmitDate()));
+        order.setOrderSubmitDate(new DateFormatter().formatString(orderDto.getOrderSubmitDate()));
         order.setClassification(classificationRepository.getClassificationByNameAndAndClassificationName(
                 orderDto.getClassification().toString(), "order"));
         order.setCost(orderDto.getCost());
-        order.setOrderCompleteDate(new DateFormatter().formatDate(orderDto.getOrderCompleteDate()));
+        order.setOrderCompleteDate(new DateFormatter().formatString(orderDto.getOrderCompleteDate()));
         order.setUser(userRepository.findByUsername(orderDto.getUsername()));
         return order;
     }

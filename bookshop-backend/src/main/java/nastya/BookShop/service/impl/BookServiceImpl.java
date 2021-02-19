@@ -49,6 +49,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto saveBook(BookDto bookDto) {
+        if(bookDto.getBookName().isEmpty()){
+            throw new IllegalArgumentException("Enter book name!");
+        }
+        if(bookDto.getAuthor().isEmpty()){
+            throw new IllegalArgumentException("Enter author!");
+        }
         return transfer(bookRepository.save(transfer(bookDto)));
     }
 

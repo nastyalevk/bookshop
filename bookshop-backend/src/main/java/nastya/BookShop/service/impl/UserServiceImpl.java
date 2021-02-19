@@ -1,9 +1,12 @@
 package nastya.BookShop.service.impl;
 
+import nastya.BookShop.dto.book.BookDto;
 import nastya.BookShop.dto.logs.ELogs;
+import nastya.BookShop.dto.response.PageResponse;
 import nastya.BookShop.dto.role.ERole;
 import nastya.BookShop.dto.role.RoleDto;
 import nastya.BookShop.dto.user.UserDto;
+import nastya.BookShop.model.Book;
 import nastya.BookShop.model.Logs;
 import nastya.BookShop.model.Role;
 import nastya.BookShop.model.User;
@@ -15,6 +18,9 @@ import nastya.BookShop.repository.UserRepository;
 import nastya.BookShop.repository.UserRolesRepository;
 import nastya.BookShop.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,13 +55,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserDto> findAll() {
-        List<User> users = userRepository.findAll();
-        List<UserDto> userDtos = new ArrayList<>();
-        for (User i : users) {
-            userDtos.add(transfer(i));
-        }
-        return userDtos;
+    public PageResponse<UserDto> findAll(int page, int size) {
+        Pageable pagingSort = PageRequest.of(page, size);
+        Page<User> users = userRepository.findAll(pagingSort);
+        return transfer(users);
     }
 
 
@@ -163,6 +166,22 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    private PageResponse<UserDto> transfer(Page<User> page) {
+        PageResponse<UserDto> pageResponse = new PageResponse<>();
+        pageResponse.setContent(transfer(page.getContent()));
+        pageResponse.setCurrentPage(page.getNumber());
+        pageResponse.setTotalElements(page.getTotalElements());
+        pageResponse.setTotalPages(page.getTotalPages());
+        return pageResponse;
+    }
+
+    private List<UserDto> transfer(List<User> users) {
+        List<UserDto> usersDto = new ArrayList<>();
+        for (User i : users) {
+            usersDto.add(transfer(i));
+        }
+        return usersDto;
+    }
     private void createUser(UserDto userDto) {
         userRepository.save(transfer(userDto));
     }

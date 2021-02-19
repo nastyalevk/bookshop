@@ -22,4 +22,5 @@ public interface AssortmentRepository extends JpaRepository<Assortment, Integer>
 
     Page<Assortment> findAllByAssortmentIdShopId(Integer shopId, Pageable pageable);
 
+    Integer getQuantityByAssortmentId(AssortmentId assortmentId);
 }

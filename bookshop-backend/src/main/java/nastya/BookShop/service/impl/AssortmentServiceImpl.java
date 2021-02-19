@@ -49,6 +49,9 @@ public class AssortmentServiceImpl implements AssortmentService {
 
     @Override
     public AssortmentDto update(AssortmentDto assortmentDto, String username) throws ParseException {
+        if(assortmentDto.getPrice()<=0){
+            throw new IllegalArgumentException("Price cant be zero or negative!");
+        }
         Assortment assortment = transfer(assortmentDto);
         if (assortmentRepository.existsByAssortmentId(assortment.getAssortmentId())) {
             if (!assortment.getAssortmentId().getShop().getUser().getUsername().equals(username)) {
