@@ -53,13 +53,13 @@ public class OrderContentServiceImpl implements OrderContentService {
     }
 
     @Override
-    @Transactional()
     public OrderContentDto saveOrderContent(OrderContentDto orderContentDto) {
         OrderContent orderContent = transfer(orderContentDto);
         Assortment assortment = assortmentRepository.getAssortmentByAssortmentId(
                 new AssortmentId(orderContent.getOrderContentId().getBook(),
-                        orderRepository.getOne(orderContentDto.getOrderId()).getShop()));
+                        orderContent.getOrderContentId().getOrder().getShop()));
         if (assortment.getQuantity() - orderContentDto.getQuantity() < 0) {
+            System.out.println(assortment.getQuantity() +" "+orderContentDto.getQuantity());
             throw new NotEnoughItemsException("Not enough items at store");
         } else {
             assortment.setQuantity(assortment.getQuantity() - orderContentDto.getQuantity());

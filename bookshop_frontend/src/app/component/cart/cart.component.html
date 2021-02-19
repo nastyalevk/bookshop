@@ -21,7 +21,7 @@
                 <dt>Author:</dt>
                 <dd>{{item.book.author}}</dd>
               </dl>
-              <h6 class="title text-truncate">Shop: {{shopNames[i]}} </h6>
+              <h6 class="title text-truncate">Shop: {{shopNames.get(item.assortment.shopId)}} </h6>
               <div *ngIf="!isBookAvaliable(item.book.id, item.assortment.shopId)">
                 <h6 class="title text-danger">Isnt avaliable in this quantity</h6>
               </div>

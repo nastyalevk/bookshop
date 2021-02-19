@@ -13,7 +13,7 @@ import {CartService} from 'src/app/_services/cart/cart.service';
 import {ReviewService} from 'src/app/_services/review/review.service';
 import {ShopService} from 'src/app/_services/shop/shop.service';
 import {TokenStorageService} from 'src/app/_services/token/token-storage.service';
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
@@ -48,7 +48,8 @@ export class BookComponent implements OnInit {
               private bookService: BookService, private appComponent: AppComponent,
               private cartService: CartService, private assortmentService: AssortmentService,
               private shopService: ShopService, private reviewService: ReviewService,
-              private tokenStorageService: TokenStorageService, private config: NgbRatingConfig) {
+              private tokenStorageService: TokenStorageService, private config: NgbRatingConfig,
+              private location: Location) {
     this.id = this.route.snapshot.params.id;
     this.book = new Book();
     this.isCart = new Map<string, boolean>();
@@ -97,7 +98,9 @@ export class BookComponent implements OnInit {
       this.reviews = data;
     });
   }
-
+  back(){
+    this.location.back();
+  }
   onSubmit(assortment: Assortment) {
     if (this.appComponent.isClient()) {
       let key = "book_" + this.id.toString() + "_" + assortment.shopId;
@@ -124,6 +127,8 @@ export class BookComponent implements OnInit {
     this.review.bookId = this.id;
     this.review.datetime = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
     this.reviewService.saveBookReview(this.review).subscribe(() => {
+      this.review.comment='';
+      this.review.rating=0;
       this.ngOnInit();
     });
   }

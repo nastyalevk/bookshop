@@ -13,12 +13,55 @@
         </li>
       </ul>
     </div>
-    <ag-grid-angular #agGrid style="width: 100%; height: 550px;" class="ag-theme-alpine" [rowData]="rowData"
-                     [columnDefs]="columnDefs" rowSelection="single" [paginationAutoPageSize]="true"
-                     [pagination]="true">
-    </ag-grid-angular>
-    <button class="btn btn-primary btn-raised text-white float-right mt-3" (click)="getSelectedRow()">Edit</button>
-    <button class="btn btn-primary btn-raised text-white float-left mt-3" (click)="addNew()">Add new</button>
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">Full name</th>
+          <th scope="col">Activated</th>
+          <th scope="col">Roles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="
+          let user of users | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index
+        " [class.active]="i == currentIndex" (click)="setActiveUser(user, i)">
+          <td>{{ user.id }}</td>
+          <td (click)="getSelectedRow(user.id)">{{ user.username }}</td>
+          <td (click)="getSelectedRow(user.id)">{{ user.email }}</td>
+          <td>{{ getFullname(user.firstName, user.lastName)}}</td>
+          <td>{{ user.activated }}</td>
+          <td>{{ getRoles(user.roles) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="col-4">
+        Items per Page:
+        <select (change)="handlePageSizeChange($event)">
+          <option *ngFor="let size of pageSizes" [ngValue]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="col-8">
+        <div class="text-right">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+            (pageChange)="handlePageChange($event)"></pagination-controls>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-raised text-white float-left mt-3" (click)="addNew()">Add new</button>
+    </div>
   </div>
   <div *ngIf="!isAdmin">
     <h1 class="text-danger">You aren't admin</h1>

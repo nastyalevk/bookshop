@@ -46,7 +46,7 @@ export class AddExistentBookInShopComponent implements OnInit {
     this.assortment.creationDate = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
     this.assortmentService.saveAssortment(this.assortment).subscribe(data => {
       this.assortment = this.assortment;
-    })
+    });
     this.router.navigate([`/shop/addBooks/${this.shopId}`]);
   }
 }

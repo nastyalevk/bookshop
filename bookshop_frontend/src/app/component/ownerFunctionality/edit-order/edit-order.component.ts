@@ -132,11 +132,6 @@ export class EditOrderComponent implements OnInit {
       data => {
         console.log(data);
         this.ngOnInit();
-      },
-      err => {
-        console.log(err.error.message);
-        const modalRef = this.modalService.open(NgbdModalContentComponent);
-        modalRef.componentInstance.message = err.error.message;
       }
     );
   }

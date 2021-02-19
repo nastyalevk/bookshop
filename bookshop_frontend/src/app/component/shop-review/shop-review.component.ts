@@ -68,6 +68,8 @@ export class ShopReviewComponent implements OnInit {
     this.review.datetime = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
     console.log(this.review);
     this.reviewService.saveShopReview(this.review).subscribe(() => {
+      this.review.comment='';
+      this.review.rating=0;
       this.ngOnInit()
     });
   }

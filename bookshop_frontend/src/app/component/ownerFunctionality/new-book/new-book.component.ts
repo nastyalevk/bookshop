@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Assortment} from 'src/app/model/assortment/assortment';
-import {Book} from 'src/app/model/book/book';
-import {AssortmentService} from 'src/app/_services/assortment/assortment.service';
-import {BookService} from 'src/app/_services/book/book.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Assortment } from 'src/app/model/assortment/assortment';
+import { Book } from 'src/app/model/book/book';
+import { AssortmentService } from 'src/app/_services/assortment/assortment.service';
+import { BookService } from 'src/app/_services/book/book.service';
+import { NgbdModalContentComponent } from '../../ngbd-modal-content/ngbd-modal-content.component';
 
 @Component({
   selector: 'app-new-book',
@@ -17,6 +19,7 @@ export class NewBookComponent implements OnInit {
   assortment = new Assortment();
   classifications = ["OPEN", "ACTIVE", "WAITING", "CLOSED"];
 
+  model: NgbDateStruct;
   bookId: number;
   today = new Date();
 
@@ -27,11 +30,14 @@ export class NewBookComponent implements OnInit {
   MM = String(this.today.getMinutes());
   ss = String(this.today.getSeconds());
 
-  constructor(private route: ActivatedRoute, protected router: Router, private bookService: BookService, private assortmentService: AssortmentService) {
+  constructor(private route: ActivatedRoute, protected router: Router, private bookService: BookService,
+    private assortmentService: AssortmentService, private modalService: NgbModal) {
     this.id = this.route.snapshot.params.id;
   }
 
   ngOnInit(): void {
+    this.book = new Book();
+    this.assortment = new Assortment();
   }
 
   getAllOrders() {
@@ -63,7 +69,15 @@ export class NewBookComponent implements OnInit {
       console.log(this.assortment);
       this.assortmentService.saveAssortment(this.assortment).subscribe(() => {
         this.ngOnInit()
+      },
+        err => {
+          const modalRef = this.modalService.open(NgbdModalContentComponent);
+          modalRef.componentInstance.message = err.error.message;
+        });
+    },
+      err => {
+        const modalRef = this.modalService.open(NgbdModalContentComponent);
+        modalRef.componentInstance.message = err.error.message;
       });
-    });
   }
 }

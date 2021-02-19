@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cart } from 'src/app/model/cart/cart';
 import { OrderContent } from 'src/app/model/orderContent/order-content';
-import { Shop } from 'src/app/model/shop/shop';
-import { OrderService } from '../order/order.service';
 import { ShopService } from '../shop/shop.service';
 
 @Injectable({
@@ -45,7 +43,9 @@ export class CartService {
   getShopList() {
     let shops = new Array<number>();
     for (let key of this.items.keys()) {
-      shops.push(this.items.get(key).assortment.shopId)
+      if (!shops.includes(this.items.get(key).assortment.shopId)) {
+        shops.push(this.items.get(key).assortment.shopId);
+      }
     }
     return shops;
   }

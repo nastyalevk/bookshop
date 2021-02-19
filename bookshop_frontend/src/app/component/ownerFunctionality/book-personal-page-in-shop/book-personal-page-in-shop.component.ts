@@ -40,6 +40,8 @@ export class BookPersonalPageInShopComponent implements OnInit {
     this.bookService.getOne(this.bookId).subscribe(data => {
       this.book = data;
 
+    }, err => {
+      this.router.navigate([`/error`]);
     });
     this.assortmentService.getOne(this.bookId, this.shopId).subscribe(data => {
       this.assortment = data;
@@ -54,7 +56,7 @@ export class BookPersonalPageInShopComponent implements OnInit {
     console.log(this.assortment);
     this.assortmentService.updateAssortment(this.assortment).subscribe(data => {
         this.assortment = this.assortment;
-        this.ngOnInit()
+        this.router.navigate([`/shop/${this.shopId}`]);
       },
       err => {
         console.log(err.error.message);

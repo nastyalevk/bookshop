@@ -1,13 +1,17 @@
 <div class="card">
   <div class="row">
+
     <aside class="col-sm-12">
+      <button type="button" (click)="back()" class="btn  btn-link btn-sm float-left"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
+
       <article class="card-body p-5">
+
         <h3 class="title mb-3">{{book.bookName}}</h3>
 
         <p *ngIf="isAvailable" class="price-detail-wrap">
-					<span class="price h3 text-warning">
-						<span class="currency">at least: $</span><span class="num">{{minPrice}}</span>
-					</span>
+          <span class="price h3 text-warning">
+            <span class="currency">at least: $</span><span class="num">{{minPrice}}</span>
+          </span>
         </p>
 
         <dl *ngIf="!isAvailable">
@@ -43,39 +47,38 @@
           <dt>Shops:</dt>
           <table class="table table-hover table-responsive">
             <tbody>
-            <tr *ngFor="let assortment of assortments;  let i = index">
-              <td>{{ shopAssortment.get(assortment).id }}</td>
-              <td (click)="goToShop(shopAssortment.get(assortment).id)">{{
-                shopAssortment.get(assortment).shopName }}</td>
-              <td>{{ shopAssortment.get(assortment).country }}</td>
-              <td>{{ shopAssortment.get(assortment).city }}</td>
-              <td>{{ shopAssortment.get(assortment).address }}</td>
-              <td>${{ assortments[i].price }}</td>
-              <td>
-                <h6>Availability: </h6>{{ getStatus(assortment.quantity)}}
-              </td>
-              <td>
-                <div *ngIf="isOpen(assortments[i].classification)">
-                  <button class="btn btn-primary btn-raised text-white float-center mt-3"
-                          *ngIf="!inCart(shopAssortment.get(assortment).id)"
-                          (click)="onSubmit(assortments[i])"><i class="fas fa-shopping-cart"></i> Add
-                    to cart
-                  </button>
-                  <button *ngIf="inCart(shopAssortment.get(assortment).id)"
-                          class="btn btn-primary btn-success btn-raised text-white float-center mt-3"
-                          (click)="onSubmit(assortments[i])"><i class="fas fa-shopping-cart"></i>
-                    already in
-                    cart
-                  </button>
-                </div>
-                <div *ngIf="!isOpen(assortments[i].classification)">
-                  <button disabled
-                          class="btn btn-primary btn-raised text-white float-center mt-3"><i
-                    class="fas fa-shopping-cart"></i> Add to cart
-                  </button>
-                </div>
-              </td>
-            </tr>
+              <tr *ngFor="let assortment of assortments;  let i = index">
+                <td>{{ shopAssortment.get(assortment).id }}</td>
+                <td (click)="goToShop(shopAssortment.get(assortment).id)">{{
+                  shopAssortment.get(assortment).shopName }}</td>
+                <td>{{ shopAssortment.get(assortment).country }}</td>
+                <td>{{ shopAssortment.get(assortment).city }}</td>
+                <td>{{ shopAssortment.get(assortment).address }}</td>
+                <td>${{ assortments[i].price }}</td>
+                <td>
+                  <h6>Availability: </h6>{{ getStatus(assortment.quantity)}}
+                </td>
+                <td>
+                  <div *ngIf="isOpen(assortments[i].classification)">
+                    <button class="btn btn-primary btn-raised text-white float-center mt-3"
+                      *ngIf="!inCart(shopAssortment.get(assortment).id)" (click)="onSubmit(assortments[i])"><i
+                        class="fas fa-shopping-cart"></i> Add
+                      to cart
+                    </button>
+                    <button *ngIf="inCart(shopAssortment.get(assortment).id)"
+                      class="btn btn-primary btn-success btn-raised text-white float-center mt-3"
+                      (click)="onSubmit(assortments[i])"><i class="fas fa-shopping-cart"></i>
+                      already in
+                      cart
+                    </button>
+                  </div>
+                  <div *ngIf="!isOpen(assortments[i].classification)">
+                    <button disabled class="btn btn-primary btn-raised text-white float-center mt-3"><i
+                        class="fas fa-shopping-cart"></i> Add to cart
+                    </button>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </dl>
@@ -84,8 +87,7 @@
           <div class="form-group">
             <label for="comment">Your Comment</label>
             <textarea name="comment" maxlength="999" [(ngModel)]="review.comment" id="comment"
-                      placeholder="Your comment"
-                      class="form-control" rows="3"></textarea>
+              placeholder="Your comment" class="form-control" rows="3"></textarea>
           </div>
           <ngb-rating [(rate)]="review.rating"></ngb-rating>
           <button type="submit" class="btn btn-info float-right" (click)="saveComment()">Send</button>
@@ -105,8 +107,7 @@
             </div>
             <ngb-rating [(rate)]="review.rating"></ngb-rating>
             <button *ngIf="currentUser==review.username" type="button"
-                    class="btn btn-outline-secondary btn-sm float-right"
-                    (click)="editComment(review.id)">Edit
+              class="btn btn-outline-secondary btn-sm float-right" (click)="editComment(review.id)">Edit
             </button>
             <p>
               {{review.comment}}<br>

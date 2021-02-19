@@ -17,8 +17,8 @@ export class UserService {
     return this.http.get<Book[]>(Url + 'book');
   }
 
-  findAll(): Observable<User[]> {
-    const users = this.http.get<User[]>(Url + 'user');
+  findAll(page: number, pageSize: number): Observable<any> {
+    const users = this.http.get<any>(Url + `user?page=${page - 1}&size=${pageSize}`);
     return users;
   }
   getOne(id: number): Observable<User> {

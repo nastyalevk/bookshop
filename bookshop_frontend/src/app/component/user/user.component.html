@@ -2,34 +2,43 @@
   <div class="card-body">
     <form #userForm="ngForm">
       <div class="form-group">
-        <label for="userName">username</label>
-        <input disabled class="form-control" id="username" placeholder="not specified" [(ngModel)]="user.username"
-               name="username">
+        <div class="row">
+          <div class="col">
+            <label for="userName">username</label>
+            <input disabled class="form-control" id="username" placeholder="not specified" [(ngModel)]="user.username"
+              name="username">
+          </div>
+          <div class="col">
+            <label for="email">Email</label>
+            <input disabled class="form-control" id="email" placeholder="not specified" [(ngModel)]="user.email"
+              name="email">
+          </div>
+        </div>
       </div>
+
       <div class="form-group">
-        <label for="email">Email</label>
-        <input disabled class="form-control" id="email" placeholder="not specified" [(ngModel)]="user.email"
-               name="email">
-      </div>
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input disabled class="form-control" id="firstName" placeholder="not specified" [(ngModel)]="user.firstName"
-               name="firstName">
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input textarea disabled class="form-control" id="LastName" placeholder="not specified"
-               [(ngModel)]="user.lastName" name="lastName">
+        <div class="row">
+          <div class="col">
+            <label for="firstName">First Name</label>
+            <input disabled class="form-control" id="firstName" placeholder="not specified" [(ngModel)]="user.firstName"
+              name="firstName">
+          </div>
+          <div class="col">
+            <label for="lastName">Last Name</label>
+            <input textarea disabled class="form-control" id="LastName" placeholder="not specified"
+              [(ngModel)]="user.lastName" name="lastName">
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
         <label><strong>Status:</strong></label>
         {{ user.activated ? "true" : "false" }}
         <button class=" btn-primary btn-raised text-white float-center mt-3" *ngIf="user.activated"
-                (click)="activatedChange(false)"> Ban user
+          (click)="activatedChange(false)"> Ban user
         </button>
         <button *ngIf="!user.activated" class=" btn-primary btn-raised text-white float-center mt-3"
-                (click)="activatedChange(true)"> Unban user
+          (click)="activatedChange(true)"> Unban user
         </button>
       </div>
 
@@ -37,10 +46,10 @@
         <label><strong>Role client:</strong></label>
         {{ getRoleStatus("ROLE_CLIENT") ? "active" : " not active" }}
         <button class=" btn-primary btn-raised text-white float-center mt-3" *ngIf="getRoleStatus('ROLE_CLIENT')"
-                (click)="changeRoleStatus('ROLE_CLIENT', false)">deactivate
+          (click)="changeRoleStatus('ROLE_CLIENT', false)">deactivate
         </button>
         <button *ngIf="!getRoleStatus('ROLE_CLIENT')" class=" btn-primary btn-raised text-white float-center mt-3"
-                (click)="changeRoleStatus('ROLE_CLIENT', true)">activate
+          (click)="changeRoleStatus('ROLE_CLIENT', true)">activate
         </button>
       </div>
 
@@ -48,10 +57,10 @@
         <label><strong>Role owner:</strong></label>
         {{ getRoleStatus("ROLE_OWNER") ? "active" : " not active" }}
         <button class=" btn-primary btn-raised text-white float-center mt-3" *ngIf="getRoleStatus('ROLE_OWNER')"
-                (click)="changeRoleStatus('ROLE_OWNER', false)">deactivate
+          (click)="changeRoleStatus('ROLE_OWNER', false)">deactivate
         </button>
         <button *ngIf="!getRoleStatus('ROLE_OWNER')" class=" btn-primary btn-raised text-white float-center mt-3"
-                (click)="changeRoleStatus('ROLE_OWNER', true)">activate
+          (click)="changeRoleStatus('ROLE_OWNER', true)">activate
         </button>
       </div>
 
@@ -59,17 +68,17 @@
         <label><strong>Role admin:</strong></label>
         {{ getRoleStatus("ROLE_ADMIN") ? "active" : " not active" }}
         <button class=" btn-primary btn-raised text-white float-center mt-3" *ngIf="getRoleStatus('ROLE_ADMIN')"
-                (click)="changeRoleStatus('ROLE_ADMIN', false)">deactivate
+          (click)="changeRoleStatus('ROLE_ADMIN', false)">deactivate
         </button>
         <button *ngIf="!getRoleStatus('ROLE_ADMIN')" class=" btn-primary btn-raised text-white float-center mt-3"
-                (click)="changeRoleStatus('ROLE_ADMIN', true)">activate
+          (click)="changeRoleStatus('ROLE_ADMIN', true)">activate
         </button>
       </div>
 
       <div class="form-group" *ngIf="activatedFlag%2 || rolesChange.length">
         <label for="changingStatus">reason for changes</label>
         <input class="form-control" id="changingStatus" placeholder="not specified" [(ngModel)]="user.message"
-               name="message">
+          name="message">
       </div>
 
       <button type="submit" class="btn btn-info" (click)="onSubmit()">Save</button>
