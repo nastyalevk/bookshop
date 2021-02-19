@@ -1,6 +1,7 @@
 package com.nastya.bookShop.service.impl;
 
 import com.nastya.bookShop.config.UrlConst;
+import com.nastya.bookShop.model.response.PageResponse;
 import com.nastya.bookShop.model.user.UserDto;
 import com.nastya.bookShop.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -52,8 +54,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAll() {
-        return restTemplate.getForObject(UrlConst.UserUrl, List.class);
+    public ResponseEntity<PageResponse> findAll(int page, int size) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(UrlConst.UserUrl)
+                .queryParam("page", page)
+                .queryParam("size", size);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        return restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, PageResponse.class);
     }
 
     @Override

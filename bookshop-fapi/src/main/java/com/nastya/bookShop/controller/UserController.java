@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -50,8 +49,9 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<UserDto>> findAll() {
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "3") int size) {
+        return new ResponseEntity<>(userService.findAll(page, size), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

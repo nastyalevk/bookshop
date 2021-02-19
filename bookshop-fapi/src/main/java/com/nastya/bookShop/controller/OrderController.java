@@ -34,7 +34,7 @@ public class OrderController {
     }
 
     @PostMapping("/content/create")
-    public ResponseEntity<?> createOrderContent(@Valid @RequestBody OrderContentDto orderContentDto) {
+    public ResponseEntity<?> createOrderContent(@RequestBody OrderContentDto orderContentDto) {
         return new ResponseEntity<>(orderService.saveOrderContent(orderContentDto), HttpStatus.OK);
     }
 

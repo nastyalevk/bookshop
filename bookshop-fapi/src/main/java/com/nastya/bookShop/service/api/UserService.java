@@ -1,6 +1,7 @@
 package com.nastya.bookShop.service.api;
 
 import com.nastya.bookShop.model.user.UserDto;
+import org.springframework.http.ResponseEntity;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -18,7 +19,7 @@ public interface UserService {
 
     void updateUser(UserDto userDto);
 
-    List<UserDto> findAll();
+    ResponseEntity findAll(int page, int size);
 
     UserDto getOne(Integer id);
 

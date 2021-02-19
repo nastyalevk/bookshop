@@ -141,7 +141,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setComment(reviewDto.getComment());
         review.setRating(reviewDto.getRating());
         review.setBook(bookRepository.getOne(reviewDto.getBookId()));
-        review.setDatetime(new DateFormatter().formatDate(reviewDto.getDatetime()));
+        review.setDatetime(new DateFormatter().formatString(reviewDto.getDatetime()));
         review.setApproved(reviewDto.isApproved());
         return review;
     }
@@ -153,7 +153,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setComment(reviewDto.getComment());
         review.setRating(reviewDto.getRating());
         review.setShop(shopRepository.getOne(reviewDto.getShopId()));
-        review.setDatetime(new DateFormatter().formatDate(reviewDto.getDatetime()));
+        review.setDatetime(new DateFormatter().formatString(reviewDto.getDatetime()));
         review.setApproved(reviewDto.isApproved());
         return review;
     }
