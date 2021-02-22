@@ -1,6 +1,6 @@
 package nastya.BookShop.service.impl;
 
-import nastya.BookShop.config.DateFormatter;
+import nastya.BookShop.model.DateFormatter;
 import nastya.BookShop.dto.assortment.AssortmentClassification;
 import nastya.BookShop.dto.assortment.AssortmentDto;
 import nastya.BookShop.dto.classification.ClassificationParent;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +29,17 @@ public class AssortmentServiceImpl implements AssortmentService {
     private final BookRepository bookRepository;
     private final ShopRepository shopRepository;
     private final ClassificationRepository classificationRepository;
+    private final DateFormatter dateFormatter;
 
     @Autowired
     public AssortmentServiceImpl(AssortmentRepository assortmentRepository, BookRepository bookRepository,
-                                 ShopRepository shopRepository, ClassificationRepository classificationRepository) {
+                                 ShopRepository shopRepository, ClassificationRepository classificationRepository,
+                                 DateFormatter dateFormatter) {
         this.assortmentRepository = assortmentRepository;
         this.bookRepository = bookRepository;
         this.shopRepository = shopRepository;
         this.classificationRepository = classificationRepository;
+        this.dateFormatter = dateFormatter;
     }
 
     @Override
@@ -49,7 +51,7 @@ public class AssortmentServiceImpl implements AssortmentService {
 
     @Override
     public AssortmentDto update(AssortmentDto assortmentDto, String username) throws ParseException {
-        if(assortmentDto.getPrice()<=0){
+        if (assortmentDto.getPrice() <= 0) {
             throw new IllegalArgumentException("Price cant be zero or negative!");
         }
         Assortment assortment = transfer(assortmentDto);
@@ -96,7 +98,7 @@ public class AssortmentServiceImpl implements AssortmentService {
         assortmentDto.setShopId(assortment.getAssortmentId().getShop().getId());
         assortmentDto.setQuantity(assortment.getQuantity());
         assortmentDto.setPrice(assortment.getPrice());
-        assortmentDto.setCreationDate(new DateFormatter().formatDate(assortment.getCreationDate()));
+        assortmentDto.setCreationDate(dateFormatter.formatDate(assortment.getCreationDate()));
         assortmentDto.setClassification(AssortmentClassification
                 .valueOf(assortment.getClassification().getName().toUpperCase()));
         return assortmentDto;
@@ -108,7 +110,7 @@ public class AssortmentServiceImpl implements AssortmentService {
                 shopRepository.getOne(assortmentDto.getShopId())));
         assortment.setQuantity(assortmentDto.getQuantity());
         assortment.setPrice(assortmentDto.getPrice());
-        assortment.setCreationDate(new DateFormatter().formatDate(assortmentDto.getCreationDate()));
+        assortment.setCreationDate(dateFormatter.formatDate(assortmentDto.getCreationDate()));
         assortment.setClassification(classificationRepository.getClassificationByNameAndAndClassificationName(
                 assortmentDto.getClassification().getName(), ClassificationParent.ASSORTMENT.getName()));
         return assortment;

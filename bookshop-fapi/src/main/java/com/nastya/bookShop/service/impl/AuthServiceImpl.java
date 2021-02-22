@@ -43,8 +43,8 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final UserRoleService userRoleService;
     private final EmailService emailService;
-    private final String emailRegex = "^(.+)@(.+)$";
-    private final String passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+    private static final String emailRegex = "^(.+)@(.+)$";
+    private static final String passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
 
     @Autowired
     public AuthServiceImpl(AuthenticationManager authenticationManager, PasswordEncoder encoder,
@@ -87,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
     public ResponseEntity<MessageResponse> registerUser(SignUpRequest signUpRequest)
             throws UnsupportedEncodingException, MessagingException, CredentialsException {
         UserDto user = createUser(signUpRequest);
-        credentialsValidate(user.getUsername(), signUpRequest.getPassword());
+        credentialsValidate(user.getEmail(), signUpRequest.getPassword());
         user.setPassword(encoder.encode(signUpRequest.getPassword()));
         user.setIsEnabled(false);
         userService.saveUser(user);
@@ -103,7 +103,7 @@ public class AuthServiceImpl implements AuthService {
             throws UnsupportedEncodingException, MessagingException {
         UserDto user = createUser(signUpRequest);
         String randomCode = RandomString.make(20);
-        credentialsValidate(user.getUsername(), randomCode);
+        credentialsValidate(user.getEmail(), randomCode);
         user.setPassword(encoder.encode(randomCode));
         user.setIsEnabled(true);
         userService.saveUser(user);

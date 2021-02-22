@@ -31,13 +31,6 @@
           <tbody>
           <tr *ngFor="
             let review of reviews">
-            <!-- | paginate : {
-    itemsPerPage: pageSize,
-    currentPage: page,
-    totalItems: count
-  };
-let i = index
-" [class.active]="i == currentIndex" (click)="setActiveBook(book, i)"> -->
             <td>{{ review.id }}</td>
             <td>{{ review.username }}</td>
             <td (click)="editComment(review.id, review.bookId)" class="ellipsis">{{ review.comment }}
@@ -53,24 +46,6 @@ let i = index
           </tr>
           </tbody>
         </table>
-
-        <!-- <div class="row">
-    <div class="col-md-12">
-        Items per Page:
-        <select (change)="handlePageSizeChange($event)">
-            <option *ngFor="let size of pageSizes" [ngValue]="size">
-                {{ size }}
-            </option>
-        </select>
-    </div>
-
-</div>
-<div class="col-md-10">
-    <div class="text-right">
-        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-            (pageChange)="handlePageChange($event)"></pagination-controls>
-    </div>
-</div> -->
       </div>
     </div>
 

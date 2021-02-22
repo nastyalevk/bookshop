@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    PageResponse<OrderDto> findByClientUsername(int page, int size, String username);
+    PageResponse<OrderDto> findByClientUsername(Integer orderNumber, int page, int size, String username);
 
     OrderDto findById(Integer id);
 
@@ -16,6 +16,8 @@ public interface OrderService {
 
     OrderDto saveOrder(OrderDto order) throws ParseException;
 
-    PageResponse<OrderDto> getOrderByShop(int page, int size, int shopId, String username);
+    OrderDto updateOrder(OrderDto order) throws ParseException;
+
+    PageResponse<OrderDto> getOrderByShop(Integer orderNumber, int page, int size, int shopId, String username);
 
 }

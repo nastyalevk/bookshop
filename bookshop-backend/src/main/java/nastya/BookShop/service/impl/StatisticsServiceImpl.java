@@ -1,19 +1,13 @@
 package nastya.BookShop.service.impl;
 
-import nastya.BookShop.config.DateFormatter;
+import nastya.BookShop.model.DateFormatter;
 import nastya.BookShop.service.api.StatisticsService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Tuple;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.util.Collections.reverseOrder;
 
@@ -41,7 +35,8 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Override
     public List<Object[]> getTopShops() {
         List<Object[]> top = entityManager.createQuery(
-                "SELECT s.id as shopId, s.shopName, COALESCE(SUM(rrs.rating), -1) as sumRateing\n" +
+                "SELECT s.id as shopId, s.shopName, " +
+                        "FLOOR(COALESCE(SUM(rrs.rating)/COUNT(rrs.rating), -1)) as sumRateing\n" +
                         "FROM ShopReview rrs RIGHT JOIN Shop s ON rrs.shop.id = s.id \n" +
                         "GROUP BY s.id " +
                         "ORDER BY sumRateing DESC")

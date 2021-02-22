@@ -7,7 +7,10 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface OrderService {
+
     OrderDto saveOrder(OrderDto orderDto);
+
+    OrderDto updateOrder(OrderDto orderDto);
 
     OrderContentDto saveOrderContent(OrderContentDto orderContentDto);
 
@@ -15,9 +18,9 @@ public interface OrderService {
 
     ResponseEntity deleteOrderContent(OrderContentDto orderContentDto);
 
-    ResponseEntity getOrdersByClientUsername(int page, int size);
+    ResponseEntity getOrdersByClientUsername(int orderNumber, int page, int size);
 
-    ResponseEntity getOrderByShop(int page, int size, int id);
+    ResponseEntity getOrderByShop(Integer orderNumber, int page, int size, int id);
 
     OrderDto getOrder(Integer id);
 

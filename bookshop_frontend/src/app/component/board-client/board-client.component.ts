@@ -17,11 +17,13 @@ export class BoardClientComponent implements OnInit {
   shops: Map<number, string>;
   page = 1;
   count = 0;
-  pageSize = 9;
-  pageSizes = [9, 12, 15];
+  pageSize = 8;
+  pageSizes = [8, 12, 15];
   private roles: string[] = [];
   isClient = false;
   isLoggedIn = false;
+  orderNumber='';
+  number: number;
   constructor(private orderService: OrderService, private router: Router,
     private shopService: ShopService, private tokenStorageService: TokenStorageService) {
       this.shops = new Map<number, string>();
@@ -40,7 +42,14 @@ export class BoardClientComponent implements OnInit {
   }
 
   getAllOrders() {
-    this.orderService.getOrderByUser(this.page, this.pageSize).subscribe(response => {
+    if(this.orderNumber){
+      this.number = parseInt(this.orderNumber);
+      this.page=1;
+      this.pageSize=8;
+    }else{
+      this.number=-1;
+    }
+    this.orderService.getOrderByUser(this.number, this.page, this.pageSize).subscribe(response => {
       const { content, totalElements } = response.body;
 
       this.orders = content;

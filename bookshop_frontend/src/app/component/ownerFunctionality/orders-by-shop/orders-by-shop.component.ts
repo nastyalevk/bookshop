@@ -21,9 +21,10 @@ export class OrdersByShopComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 9;
-  pageSizes = [9, 12, 15];
-
+  pageSize = 8;
+  pageSizes = [8, 12, 15];
+  orderNumber='';
+  number: number;
   constructor(private route: ActivatedRoute, protected router: Router, private orderService: OrderService,
               private tokenStorageService: TokenStorageService) {
     this.id = this.route.snapshot.params.id;
@@ -39,7 +40,14 @@ export class OrdersByShopComponent implements OnInit {
 
 
   getAllOrders() {
-    this.orderService.getOrderByShop(this.page, this.pageSize, this.id).subscribe(response => {
+    if(this.orderNumber){
+      this.number = parseInt(this.orderNumber);
+      this.page=1;
+      this.pageSize=8;
+    }else{
+      this.number=-1;
+    }
+    this.orderService.getOrderByShop(this.number, this.page, this.pageSize, this.id).subscribe(response => {
         const {content, totalElements} = response.body;
 
         this.orders = content;

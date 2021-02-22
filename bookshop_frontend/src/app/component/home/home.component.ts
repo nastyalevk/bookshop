@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Book} from '../../model/book/book';
-import {BookService} from 'src/app/_services/book/book.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Book } from '../../model/book/book';
+import { BookService } from 'src/app/_services/book/book.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PaginationService } from 'src/app/_services/pagination/pagination.service';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,15 @@ export class HomeComponent implements OnInit {
   sort: string;
   sorts: Map<String, String>;
 
-  page = 1;
+  page: number;
   count = 0;
-  pageSize = 8;
+  pageSize: number;
   pageSizes = [8, 12, 15];
 
-  constructor(private bookService: BookService, protected router: Router) {
+  constructor(private bookService: BookService, protected router: Router, private route: ActivatedRoute,
+    private paginationService: PaginationService) {
+    this.page = this.paginationService.getPage();
+    this.pageSize = this.paginationService.getSize();
     this.sort = "";
     this.sorts = new Map([]);
   }
@@ -30,12 +34,19 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.retrieveBooks();
   }
+  getPageSize(): number{
+    return this.paginationService.getSize();
+  }
 
   retrieveBooks(): void {
+    if(this.bookName!=''){
+      this.page=1;
+      this.pageSize=this.paginationService.getSize();
+    }
     this.bookService.getAll(this.bookName, this.page, this.pageSize, this.sort)
       .subscribe(
         response => {
-          const {content, totalElements} = response.body;
+          const { content, totalElements } = response.body;
 
           this.books = content;
           this.count = totalElements;
@@ -48,12 +59,15 @@ export class HomeComponent implements OnInit {
 
   handlePageChange(event: number): void {
     this.page = event;
+    this.paginationService.setPage(this.page);
     this.retrieveBooks();
   }
 
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.page = 1;
+    this.paginationService.setPage(this.page);
+    this.paginationService.setSize(this.pageSize);
     this.retrieveBooks();
   }
 

@@ -70,8 +70,8 @@
           <div class="form-group">
             <button *ngIf="isOwner" type="submit" class="btn btn-info float-left" (click)="saveOrder()">Save
             </button>
-            <button type="submit" class="btn btn-danger float-right" (click)="deleteOrder()"><i class="fa fa-trash"
-                aria-hidden="true"></i>Delete
+            <button *ngIf="order.classification!='CANCELED'" type="submit" class="btn btn-danger float-right" (click)="deleteOrder()"><i class="fa fa-trash"
+                aria-hidden="true"></i> Delete
             </button>
           </div>
         </form>

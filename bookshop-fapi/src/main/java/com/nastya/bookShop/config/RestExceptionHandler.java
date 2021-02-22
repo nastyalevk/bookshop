@@ -28,7 +28,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(NOT_FOUND);
         apiError.setMessage(ex.getMessage());
         logger.error("Server error: {}", ex.getMessage());
-        ex.printStackTrace();
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
@@ -38,7 +37,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(UNAUTHORIZED);
         apiError.setMessage(ex.getMessage());
         logger.error("Server error: {}", ex.getMessage());
-        ex.printStackTrace();
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
@@ -48,7 +46,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(UNAUTHORIZED);
         apiError.setMessage("You are not registered!");
         logger.error("Server error: {}", ex.getMessage());
-        ex.printStackTrace();
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
@@ -58,7 +55,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(NOT_FOUND);
         apiError.setMessage(ex.getMessage());
         logger.error("Server error: {}", ex.getMessage());
-        ex.printStackTrace();
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 

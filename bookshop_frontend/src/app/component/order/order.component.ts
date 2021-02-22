@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Cart } from 'src/app/model/cart/cart';
@@ -10,6 +10,7 @@ import { DateFormatterService } from 'src/app/_services/formatter/date-formatter
 import { OrderService } from 'src/app/_services/order/order.service';
 import { TokenStorageService } from 'src/app/_services/token/token-storage.service';
 import { NgbdModalContentComponent } from '../ngbd-modal-content/ngbd-modal-content.component';
+import { OrderSubmitComponent } from '../order-submit/order-submit.component';
 
 @Component({
   selector: 'app-order',
@@ -17,12 +18,14 @@ import { NgbdModalContentComponent } from '../ngbd-modal-content/ngbd-modal-cont
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
+  @Output() public found = new EventEmitter<any>();
+
   items: Cart[];
   orderContent: OrderContent;
   order = new Order();
   orders: Map<number, Cart[]>;
 
-  itemsInOrder: Cart[]=[];
+  itemsInOrder: Cart[] = [];
   deliveryAddress: string | undefined;
   description: string | undefined;
   model: NgbDateStruct;
@@ -34,9 +37,10 @@ export class OrderComponent implements OnInit {
   hh = String(this.today.getHours());
   MM = String(this.today.getMinutes());
   ss = String(this.today.getSeconds());
+  nowDate = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
 
   constructor(private router: Router, private cartService: CartService,
-    private tokenStorage: TokenStorageService, private orderService: OrderService, 
+    private tokenStorage: TokenStorageService, private orderService: OrderService,
     private modalService: NgbModal) {
     this.items = this.cartService.toArray();
     this.order.cost = 0;
@@ -46,6 +50,7 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit() {
+    this.orderService.orderNumber.clear();
     let shops = this.cartService.getShopList();
     let orderAmound = shops.length;
     console.log(orderAmound);
@@ -88,15 +93,14 @@ export class OrderComponent implements OnInit {
         console.log(this.orderContent);
         this.orderService.saveOrderContent(this.orderContent).subscribe(() => {
           this.ngOnInit()
+
+          this.cartService.clearCart();
+          this.router.navigate(['/order-info']);
         },
-          err => {
-            const modalRef = this.modalService.open(NgbdModalContentComponent);
-            modalRef.componentInstance.message = err.error.message;
-          });
+          err => { });
       }
 
-      this.cartService.clearCart();
-      this.router.navigate(['/order-info']);
+      this.orderService.orderNumber.set(this.order.shopId, this.order.orderNumber);
     },
       err => {
         const modalRef = this.modalService.open(NgbdModalContentComponent);
@@ -110,8 +114,8 @@ export class OrderComponent implements OnInit {
     this.order.description = this.description;
     this.order.cost = 0;
     this.order.classification = 'OPEN';
-    this.order.orderSubmitDate = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
     this.order.shopId = shopId;
+    this.order.orderSubmitDate =this.nowDate
     if (this.model) {
       this.dd = String(this.model.day);
       this.mm = String(this.model.month);

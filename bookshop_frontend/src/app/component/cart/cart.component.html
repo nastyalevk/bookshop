@@ -54,13 +54,14 @@
       </tbody>
     </table>
     <h5 *ngIf="items.length">Full price: ${{fullPrice}}</h5>
+    <div class="form-group">
     <div *ngIf="isOrderButton()">
       <button class="btn btn-primary btn-raised text-white float-right mt-3" *ngIf="items.length"
               (click)="order()">
         Make an
         order
       </button>
-    </div>
+    </div></div>
 
 
   </div>

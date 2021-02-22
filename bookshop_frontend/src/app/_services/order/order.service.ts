@@ -13,10 +13,16 @@ const Url = 'http://localhost:8087/order';
 
 export class OrderService {
 
+  orderNumber = new Map<number, number>();
+
   constructor(private http: HttpClient) {
   }
   saveOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(Url + '/create', order);
+  }
+
+  updateOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(Url + '/update', order);
   }
 
   saveOrderContent(orderContent: OrderContent): Observable<OrderContent> {
@@ -31,8 +37,8 @@ export class OrderService {
     return this.http.post(Url + '/content/delete/', orderContent);
   }
 
-  getOrderByShop(page: number, pageSize: number, shopId: number): Observable<any> {
-    return this.http.get(Url + `/shop/?page=${page - 1}&size=${pageSize}&shopId=${shopId}`);
+  getOrderByShop(orderNumber: number, page: number, pageSize: number, shopId: number): Observable<any> {
+    return this.http.get(Url + `/shop/?page=${page - 1}&size=${pageSize}&shopId=${shopId}&orderNumber=${orderNumber}`);
   }
 
   getOne(id: number): Observable<Order> {
@@ -48,7 +54,7 @@ export class OrderService {
     return this.http.get<OrderContent>(Url + '/content/' + orderId + "/" + bookId);
   }
 
-  getOrderByUser(page: number, pageSize: number): Observable<any> {
-    return this.http.get<any>(Url + `/client/?page=${page - 1}&size=${pageSize}`);
+  getOrderByUser(orderNumber: number, page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(Url + `/client/?orderNumber=${orderNumber}&page=${page - 1}&size=${pageSize}`);
   }
 }

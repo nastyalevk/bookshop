@@ -1,6 +1,10 @@
 <div class="card-body">
   <div class="container">
     <h4>Order submitted</h4>
+    <h4>You ordered from {{message.size}} shops</h4>
+    <div *ngFor='let key of parsedMessage.keys()'>
+      <h4>Your order number for {{key}}: {{parsedMessage.get(key)}}</h4>
+    </div>
     <button class="btn btn-primary btn-raised text-white float-rihgt mt-3" (click)="onSubmit()">
       Continue shopping
     </button>

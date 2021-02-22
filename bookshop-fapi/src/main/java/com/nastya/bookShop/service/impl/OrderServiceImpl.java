@@ -34,6 +34,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderDto updateOrder(OrderDto orderDto) {
+        return restTemplate.postForEntity(UrlConst.OrderUrl + "/update", orderDto, OrderDto.class).getBody();
+    }
+
+    @Override
     public OrderContentDto saveOrderContent(OrderContentDto orderContentDto) {
         return restTemplate.postForEntity
                 (UrlConst.OrderContentUrl + "/create", orderContentDto, OrderContentDto.class).getBody();
@@ -52,21 +57,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ResponseEntity getOrdersByClientUsername(int page, int size) {
+    public ResponseEntity getOrdersByClientUsername(int orderNumber, int page, int size) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(UrlConst.OrderUrl + "client/")
                 .queryParam("username", SecurityContextHolder.getContext().getAuthentication().getName())
                 .queryParam("page", page)
-                .queryParam("size", size);
-
+                .queryParam("size", size)
+                .queryParam("orderNumber",orderNumber);
         HttpEntity<?> entity = new HttpEntity<>(headers);
         return restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, PageResponse.class);
 
     }
 
     @Override
-    public ResponseEntity getOrderByShop(int page, int size, int shopId) {
+    public ResponseEntity getOrderByShop(Integer orderNumber, int page, int size, int shopId) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
@@ -74,7 +79,8 @@ public class OrderServiceImpl implements OrderService {
                 .queryParam("page", page)
                 .queryParam("size", size)
                 .queryParam("shopId", shopId)
-                .queryParam("usernameRequested", SecurityContextHolder.getContext().getAuthentication().getName());
+                .queryParam("usernameRequested", SecurityContextHolder.getContext().getAuthentication().getName())
+                .queryParam("orderNumber",orderNumber);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 

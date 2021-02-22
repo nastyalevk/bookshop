@@ -22,8 +22,8 @@ export class AllBooksOwnerComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 6;
-  pageSizes = [6, 12, 15];
+  pageSize = 7;
+  pageSizes = [7, 12, 15];
   id: number;
   isInShop: boolean;
   assortment: Assortment

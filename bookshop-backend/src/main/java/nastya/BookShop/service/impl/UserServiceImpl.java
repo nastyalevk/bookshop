@@ -1,12 +1,10 @@
 package nastya.BookShop.service.impl;
 
-import nastya.BookShop.dto.book.BookDto;
 import nastya.BookShop.dto.logs.ELogs;
 import nastya.BookShop.dto.response.PageResponse;
 import nastya.BookShop.dto.role.ERole;
 import nastya.BookShop.dto.role.RoleDto;
 import nastya.BookShop.dto.user.UserDto;
-import nastya.BookShop.model.Book;
 import nastya.BookShop.model.Logs;
 import nastya.BookShop.model.Role;
 import nastya.BookShop.model.User;
@@ -182,6 +180,7 @@ public class UserServiceImpl implements UserService {
         }
         return usersDto;
     }
+
     private void createUser(UserDto userDto) {
         userRepository.save(transfer(userDto));
     }

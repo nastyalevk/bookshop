@@ -48,6 +48,7 @@ const routes: Routes = [
   {path: 'order', component: OrderComponent},
   {path: 'order-info', component: OrderSubmitComponent},
   {path: 'orders/shop/:id', component: OrdersByShopComponent},
+  {path: 'home/page/size', component: HomeComponent},
   {path: 'shop/edit/:id', component: EditShopComponent},
   {path: 'shop/newBook/:id', component: NewBookComponent},
   {path: 'shop/addBooks/:id', component: AllBooksOwnerComponent},

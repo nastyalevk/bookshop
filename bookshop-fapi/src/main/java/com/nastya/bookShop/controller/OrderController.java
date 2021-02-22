@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,11 @@ public class OrderController {
         return new ResponseEntity<>(orderService.saveOrder(orderDto), HttpStatus.OK);
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<OrderDto> updateOrder(@RequestBody OrderDto orderDto) throws ParseException {
+        return new ResponseEntity<>(orderService.updateOrder(orderDto), HttpStatus.OK);
+    }
+
     @PostMapping("/content/create")
     public ResponseEntity<?> createOrderContent(@RequestBody OrderContentDto orderContentDto) {
         return new ResponseEntity<>(orderService.saveOrderContent(orderContentDto), HttpStatus.OK);
@@ -44,10 +50,11 @@ public class OrderController {
     }
 
     @GetMapping("/shop/")
-    public ResponseEntity getOrdersByShop(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity getOrdersByShop(@RequestParam(required = false) int orderNumber,
+                                          @RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "9") int size,
                                           @RequestParam() int shopId) {
-        return new ResponseEntity<>(orderService.getOrderByShop(page, size, shopId), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.getOrderByShop(orderNumber, page, size, shopId), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -61,9 +68,10 @@ public class OrderController {
     }
 
     @GetMapping("/client/")
-    public ResponseEntity getOrdersByClient(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity getOrdersByClient(@RequestParam(required = false) int orderNumber,
+                                            @RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "9") int size) {
-        return new ResponseEntity<>(orderService.getOrdersByClientUsername(page, size), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.getOrdersByClientUsername(orderNumber, page, size), HttpStatus.OK);
     }
 
     @GetMapping("/content/{orderId}/{bookId}")

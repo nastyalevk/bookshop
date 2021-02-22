@@ -42,7 +42,6 @@ export class BookComponent implements OnInit {
   yyyy = String(this.today.getFullYear());
   hh = String(this.today.getHours());
   MM = String(this.today.getMinutes());
-  ss = String(this.today.getSeconds());
 
   constructor(private route: ActivatedRoute, protected router: Router,
               private bookService: BookService, private appComponent: AppComponent,
@@ -125,7 +124,7 @@ export class BookComponent implements OnInit {
 
   saveComment() {
     this.review.bookId = this.id;
-    this.review.datetime = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM + ":" + this.ss;
+    this.review.datetime = this.yyyy + "-" + this.mm + "-" + this.dd + " " + this.hh + ":" + this.MM;
     this.reviewService.saveBookReview(this.review).subscribe(() => {
       this.review.comment='';
       this.review.rating=0;

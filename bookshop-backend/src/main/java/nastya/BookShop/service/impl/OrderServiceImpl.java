@@ -1,6 +1,6 @@
 package nastya.BookShop.service.impl;
 
-import nastya.BookShop.config.DateFormatter;
+import nastya.BookShop.model.DateFormatter;
 import nastya.BookShop.dto.order.OrderClassification;
 import nastya.BookShop.dto.order.OrderDto;
 import nastya.BookShop.dto.response.PageResponse;
@@ -32,19 +32,28 @@ public class OrderServiceImpl implements OrderService {
     private final ShopRepository shopRepository;
     private final ClassificationRepository classificationRepository;
     private final UserRepository userRepository;
+    private final DateFormatter dateFormatter;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ShopRepository shopRepository, ClassificationRepository classificationRepository, UserRepository userRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, ShopRepository shopRepository,
+                            ClassificationRepository classificationRepository, UserRepository userRepository,
+                            DateFormatter dateFormatter) {
         this.orderRepository = orderRepository;
         this.shopRepository = shopRepository;
         this.classificationRepository = classificationRepository;
         this.userRepository = userRepository;
+        this.dateFormatter = dateFormatter;
     }
 
     @Override
-    public PageResponse<OrderDto> findByClientUsername(int page, int size, String username) {
+    public PageResponse<OrderDto> findByClientUsername(Integer orderNumber, int page, int size, String username) {
         Pageable paging = PageRequest.of(page, size, Sort.by("id").descending());
-        Page<Order> orders = orderRepository.findByUserUsername(username, paging);
+        Page<Order> orders;
+        if (orderNumber==-1) {
+            orders = orderRepository.findByUserUsername(username, paging);
+        } else {
+            orders = orderRepository.findByOrderNumberAndUserUsername(orderNumber, username, paging);
+        }
         return transfer(orders);
     }
 
@@ -60,18 +69,33 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto saveOrder(OrderDto orderDto) throws ParseException {
+        Order order = transfer(orderDto);
+        if (order.getOrderSubmitDate().after(order.getOrderCompleteDate())) {
+            throw new IllegalArgumentException("Invalid date!");
+        }
         return transfer(orderRepository.save(transfer(orderDto)));
     }
 
     @Override
-    public PageResponse<OrderDto> getOrderByShop(int page, int size, int shopId, String username) {
+    public OrderDto updateOrder(OrderDto orderDto) throws ParseException {
+        return transfer(orderRepository.save(transfer(orderDto)));
+    }
+
+    @Override
+    public PageResponse<OrderDto> getOrderByShop
+            (Integer orderNumber, int page, int size, int shopId, String username) {
         Shop shop = shopRepository.getOne(shopId);
         if (!shop.getUser().getUsername().equals(username)) {
             throw new NoAccessException("You dont have access for this page!");
         }
         Pageable paging = PageRequest.of(page, size,
                 Sort.by("id").descending());
-        Page<Order> orders = orderRepository.findByShopId(shopId, paging);
+        Page<Order> orders;
+        if (orderNumber==-1) {
+            orders = orderRepository.findByShopId(shopId, paging);
+        } else {
+            orders = orderRepository.findByOrderNumberAndShopId(orderNumber, shopId, paging);
+        }
         return transfer(orders);
     }
 
@@ -90,26 +114,26 @@ public class OrderServiceImpl implements OrderService {
         orderDto.setShopId(order.getShop().getId());
         orderDto.setDeliveryAddress(order.getDeliveryAddress());
         orderDto.setDescription(order.getDescription());
-        orderDto.setOrderSubmitDate(new DateFormatter().formatDate(order.getOrderSubmitDate()));
+        orderDto.setOrderSubmitDate(dateFormatter.formatDate(order.getOrderSubmitDate()));
         orderDto.setClassification(OrderClassification.valueOf(order.getClassification().getName().toUpperCase()));
         orderDto.setCost(order.getCost());
-        orderDto.setOrderCompleteDate(new DateFormatter().formatDate(order.getOrderCompleteDate()));
+        orderDto.setOrderCompleteDate(dateFormatter.formatDate(order.getOrderCompleteDate()));
         orderDto.setUsername(order.getUser().getUsername());
         return orderDto;
     }
 
-    private synchronized Order transfer(OrderDto orderDto) throws ParseException {
+    private Order transfer(OrderDto orderDto) throws ParseException {
         Order order = new Order();
         order.setId(orderDto.getOrderId());
         order.setOrderNumber(orderDto.getOrderNumber());
         order.setShop(shopRepository.getShopById(orderDto.getShopId()));
         order.setDeliveryAddress(orderDto.getDeliveryAddress());
         order.setDescription(orderDto.getDescription());
-        order.setOrderSubmitDate(new DateFormatter().formatString(orderDto.getOrderSubmitDate()));
+        order.setOrderSubmitDate(dateFormatter.formatString(orderDto.getOrderSubmitDate()));
         order.setClassification(classificationRepository.getClassificationByNameAndAndClassificationName(
                 orderDto.getClassification().toString(), "order"));
         order.setCost(orderDto.getCost());
-        order.setOrderCompleteDate(new DateFormatter().formatString(orderDto.getOrderCompleteDate()));
+        order.setOrderCompleteDate(dateFormatter.formatString(orderDto.getOrderCompleteDate()));
         order.setUser(userRepository.findByUsername(orderDto.getUsername()));
         return order;
     }

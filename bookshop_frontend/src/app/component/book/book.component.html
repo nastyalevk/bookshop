@@ -1,13 +1,9 @@
 <div class="card">
   <div class="row">
-
     <aside class="col-sm-12">
       <button type="button" (click)="back()" class="btn  btn-link btn-sm float-left"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
-
       <article class="card-body p-5">
-
         <h3 class="title mb-3">{{book.bookName}}</h3>
-
         <p *ngIf="isAvailable" class="price-detail-wrap">
           <span class="price h3 text-warning">
             <span class="currency">at least: $</span><span class="num">{{minPrice}}</span>

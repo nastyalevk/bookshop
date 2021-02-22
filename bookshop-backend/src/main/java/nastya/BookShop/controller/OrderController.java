@@ -43,18 +43,26 @@ public class OrderController {
         return new ResponseEntity<>(orderService.saveOrder(orderDto), HttpStatus.OK);
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<OrderDto> updateOrder(@RequestBody OrderDto orderDto) throws ParseException {
+        return new ResponseEntity<>(orderService.updateOrder(orderDto), HttpStatus.OK);
+    }
+
     @GetMapping("/client/")
-    public ResponseEntity<PageResponse<OrderDto>> getOrdersByClient(@RequestParam(defaultValue = "0") int page,
-                                                          @RequestParam(defaultValue = "9") int size,
-                                                          @RequestParam() String username) {
-        return new ResponseEntity<>(orderService.findByClientUsername(page, size, username), HttpStatus.OK);
+    public ResponseEntity<PageResponse<OrderDto>> getOrdersByClient(@RequestParam(required = false) int orderNumber,
+                                                                    @RequestParam(defaultValue = "0") int page,
+                                                                    @RequestParam(defaultValue = "9") int size,
+                                                                    @RequestParam() String username) {
+        return new ResponseEntity<>
+                (orderService.findByClientUsername(orderNumber, page, size, username), HttpStatus.OK);
     }
 
     @GetMapping("/shop/")
-    public ResponseEntity<PageResponse<OrderDto>> getOrdersByShop(@RequestParam(defaultValue = "0") int page,
-                                                        @RequestParam(defaultValue = "9") int size,
-                                                        @RequestParam() int shopId,
-                                                        @RequestParam(name = "usernameRequested") String username) {
-        return new ResponseEntity<>(orderService.getOrderByShop(page, size, shopId, username), HttpStatus.OK);
+    public ResponseEntity<PageResponse<OrderDto>> getOrdersByShop(@RequestParam(required = false) int orderNumber,
+                                                                  @RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "9") int size,
+                                                                  @RequestParam() int shopId,
+                                                                  @RequestParam(name = "usernameRequested") String username) {
+        return new ResponseEntity<>(orderService.getOrderByShop(orderNumber, page, size, shopId, username), HttpStatus.OK);
     }
 }

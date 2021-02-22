@@ -1,6 +1,6 @@
 package nastya.BookShop.service.impl;
 
-import nastya.BookShop.config.DateFormatter;
+import nastya.BookShop.model.DateFormatter;
 import nastya.BookShop.dto.review.BookReviewDto;
 import nastya.BookShop.dto.review.ShopReviewDto;
 import nastya.BookShop.model.BookReview;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,15 +28,18 @@ public class ReviewServiceImpl implements ReviewService {
     private final ShopRepository shopRepository;
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
+    private final DateFormatter dateFormatter;
 
     @Autowired
-    public ReviewServiceImpl(BookReviewRepository bookReviewRepository, ShopReviewRepository shopReviewRepository, ShopRepository shopRepository,
-                             UserRepository userRepository, BookRepository bookRepository) {
+    public ReviewServiceImpl(BookReviewRepository bookReviewRepository, ShopReviewRepository shopReviewRepository,
+                             ShopRepository shopRepository, UserRepository userRepository,
+                             BookRepository bookRepository, DateFormatter dateFormatter) {
         this.bookReviewRepository = bookReviewRepository;
         this.shopReviewRepository = shopReviewRepository;
         this.shopRepository = shopRepository;
         this.userRepository = userRepository;
         this.bookRepository = bookRepository;
+        this.dateFormatter = dateFormatter;
     }
 
     @Override
@@ -117,7 +119,7 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDto.setComment(review.getComment());
         reviewDto.setRating(review.getRating());
         reviewDto.setBookId(review.getBook().getId());
-        reviewDto.setDatetime(new DateFormatter().formatDate(review.getDatetime()));
+        reviewDto.setDatetime(dateFormatter.formatDate(review.getDatetime()));
         reviewDto.setApproved(review.getApproved());
         return reviewDto;
     }
@@ -129,7 +131,7 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDto.setComment(review.getComment());
         reviewDto.setRating(review.getRating());
         reviewDto.setShopId(review.getShop().getId());
-        reviewDto.setDatetime(new DateFormatter().formatDate(review.getDatetime()));
+        reviewDto.setDatetime(dateFormatter.formatDate(review.getDatetime()));
         reviewDto.setApproved(review.getApproved());
         return reviewDto;
     }
@@ -141,7 +143,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setComment(reviewDto.getComment());
         review.setRating(reviewDto.getRating());
         review.setBook(bookRepository.getOne(reviewDto.getBookId()));
-        review.setDatetime(new DateFormatter().formatString(reviewDto.getDatetime()));
+        review.setDatetime(dateFormatter.formatDate(reviewDto.getDatetime()));
         review.setApproved(reviewDto.isApproved());
         return review;
     }
@@ -153,7 +155,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setComment(reviewDto.getComment());
         review.setRating(reviewDto.getRating());
         review.setShop(shopRepository.getOne(reviewDto.getShopId()));
-        review.setDatetime(new DateFormatter().formatString(reviewDto.getDatetime()));
+        review.setDatetime(dateFormatter.formatDate(reviewDto.getDatetime()));
         review.setApproved(reviewDto.isApproved());
         return review;
     }

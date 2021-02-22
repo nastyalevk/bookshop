@@ -21,7 +21,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     protected ResponseEntity<Object> handleRuntime(
             RuntimeException ex) {
-        ex.printStackTrace();
         logger.error("Server error: {}", ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), NOT_FOUND);
     }
