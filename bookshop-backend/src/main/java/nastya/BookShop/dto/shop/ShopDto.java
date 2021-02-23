@@ -18,6 +18,7 @@ public class ShopDto {
     private String address;
     private String description;
     private ShopClassification classification;
-    private Integer userId;
+//    private String shopId;
+    private String username;
 
 }

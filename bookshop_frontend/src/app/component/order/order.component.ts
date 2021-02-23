@@ -18,8 +18,6 @@ import { OrderSubmitComponent } from '../order-submit/order-submit.component';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  @Output() public found = new EventEmitter<any>();
-
   items: Cart[];
   orderContent: OrderContent;
   order = new Order();

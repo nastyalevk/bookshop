@@ -67,6 +67,9 @@ export class BookPersonalPageInShopComponent implements OnInit {
 
   deleteFromShop() {
     this.assortmentService.deleteAssortment(this.bookId, this.shopId).subscribe(() => {
+      this.assortment.quantity=undefined;
+      this.assortment.price=undefined;
+      this.assortment.classification=this.classifications[3];
       this.ngOnInit()
     });
   }

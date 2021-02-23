@@ -22,8 +22,8 @@ export class AllBooksOwnerComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 7;
-  pageSizes = [7, 12, 15];
+  pageSize = 8;
+  pageSizes = [8, 12, 15];
   id: number;
   isInShop: boolean;
   assortment: Assortment
@@ -111,7 +111,7 @@ export class AllBooksOwnerComponent implements OnInit {
   }
 
   addToShop(id: string) {
-    this.router.navigate([`shop/addBook/${this.id}/${id}`]);
+    this.router.navigate([`/shop/${this.id}/book/${id}`]);
   }
 
   deleteFromShop(bookId: number) {

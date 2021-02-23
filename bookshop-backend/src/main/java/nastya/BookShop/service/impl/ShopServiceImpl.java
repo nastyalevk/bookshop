@@ -38,11 +38,12 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public ShopDto saveShop(ShopDto shopDto, String username) {
+        if(shopDto.getId()!=null){
         if (shopRepository.existsById(shopDto.getId())) {
             if (!shopRepository.getOne(shopDto.getId()).getUser().getUsername().equals(username)) {
                 throw new NoAccessException("You dont have access for this action!");
             }
-        }
+        }}
         return transfer(shopRepository.save(transfer((shopDto))));
     }
 
@@ -84,7 +85,7 @@ public class ShopServiceImpl implements ShopService {
         shopDto.setAddress(shop.getAddress());
         shopDto.setDescription(shop.getDescription());
         shopDto.setClassification(ShopClassification.valueOf(shop.getClassification().getName().toUpperCase()));
-        shopDto.setUserId(shop.getUser().getId());
+        shopDto.setUsername(shop.getUser().getUsername());
         return shopDto;
     }
 
@@ -98,7 +99,7 @@ public class ShopServiceImpl implements ShopService {
         shop.setDescription(shopDto.getDescription());
         shop.setClassification(classificationRepository.getClassificationByNameAndAndClassificationName(
                 shopDto.getClassification().getName(), ClassificationParent.SHOP.getName()));
-        shop.setUser(userRepository.getOne(shopDto.getUserId()));
+        shop.setUser(userRepository.findByUsername(shopDto.getUsername()));
         return shop;
     }
 }

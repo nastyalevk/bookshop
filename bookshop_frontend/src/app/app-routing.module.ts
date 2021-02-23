@@ -17,7 +17,6 @@ import {OrdersByShopComponent} from './component/ownerFunctionality/orders-by-sh
 import {EditShopComponent} from './component/ownerFunctionality/edit-shop/edit-shop.component';
 import {NewBookComponent} from './component/ownerFunctionality/new-book/new-book.component';
 import {AllBooksOwnerComponent} from './component/ownerFunctionality/all-books-owner/all-books-owner.component';
-import {AddExistentBookInShopComponent} from './component/ownerFunctionality/add-existent-book-in-shop/add-existent-book-in-shop.component';
 import {ShopAssortmentComponent} from './component/ownerFunctionality/shop-assortment/shop-assortment.component';
 import {BookPersonalPageInShopComponent} from './component/ownerFunctionality/book-personal-page-in-shop/book-personal-page-in-shop.component';
 import {CreateNewShopComponent} from './component/ownerFunctionality/create-new-shop/create-new-shop.component';
@@ -52,7 +51,6 @@ const routes: Routes = [
   {path: 'shop/edit/:id', component: EditShopComponent},
   {path: 'shop/newBook/:id', component: NewBookComponent},
   {path: 'shop/addBooks/:id', component: AllBooksOwnerComponent},
-  {path: 'shop/addBook/:shopId/:bookId', component: AddExistentBookInShopComponent},
   {path: 'shop/:id', component: ShopAssortmentComponent},
   {path: 'shop/:shopId/book/:bookId', component: BookPersonalPageInShopComponent},
   {path: 'new/shop', component: CreateNewShopComponent},

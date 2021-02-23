@@ -23,7 +23,6 @@ import {OrdersByShopComponent} from './component/ownerFunctionality/orders-by-sh
 import {EditShopComponent} from './component/ownerFunctionality/edit-shop/edit-shop.component';
 import {NewBookComponent} from './component/ownerFunctionality/new-book/new-book.component';
 import {AllBooksOwnerComponent} from './component/ownerFunctionality/all-books-owner/all-books-owner.component';
-import {AddExistentBookInShopComponent} from './component/ownerFunctionality/add-existent-book-in-shop/add-existent-book-in-shop.component';
 import {ShopAssortmentComponent} from './component/ownerFunctionality/shop-assortment/shop-assortment.component';
 import {BookPersonalPageInShopComponent} from './component/ownerFunctionality/book-personal-page-in-shop/book-personal-page-in-shop.component';
 import {CreateNewShopComponent} from './component/ownerFunctionality/create-new-shop/create-new-shop.component';
@@ -62,7 +61,6 @@ import { OrdersStatComponent } from './component/shopStats/orders-stat/orders-st
     EditShopComponent,
     NewBookComponent,
     AllBooksOwnerComponent,
-    AddExistentBookInShopComponent,
     ShopAssortmentComponent,
     BookPersonalPageInShopComponent,
     CreateNewShopComponent,
@@ -94,7 +92,6 @@ import { OrdersStatComponent } from './component/shopStats/orders-stat/orders-st
     HomeComponent,
     CartComponent,
     BoardClientComponent,
-    AddExistentBookInShopComponent,
     BookComponent,
     AllBooksOwnerComponent
   ],

@@ -39,6 +39,9 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public ResponseEntity<ShopDto> createShop(ShopDto shopDto) {
+        if(shopDto.getUsername()==null){
+            shopDto.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        }
         return restTemplate.postForEntity(UrlConst.ShopUrl + "/create/" +
                 SecurityContextHolder.getContext().getAuthentication().getName(), shopDto, ShopDto.class);
     }

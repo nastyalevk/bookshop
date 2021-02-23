@@ -5,7 +5,7 @@ export class Shop {
   city: string | undefined;
   address: string | undefined;
   classification: string | undefined;
-  userId: number | undefined;
+  username: string | undefined;
   creationDate: string | undefined;
 
 }

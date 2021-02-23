@@ -23,16 +23,16 @@
 
       <table class="table table-hover">
         <thead class="thead-light">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Author</th>
-          <th scope="col">Genre</th>
-          <th scope="col">Publ. year</th>
-        </tr>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Publ. year</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="
+          <tr *ngFor="
                     let book of books | paginate : {
                             itemsPerPage: pageSize,
                             currentPage: page,
@@ -40,18 +40,18 @@
                           };
                     let i = index
                   " [class.active]="i == currentIndex" (click)="setActiveBook(book, i)">
-          <td>{{ book.id }}</td>
-          <td (click)="goToBookPersonalPage(book.id)">{{ book.bookName }}</td>
-          <td>{{ book.author }}</td>
-          <td  class="ellipsis">{{ book.genre }}</td>
-          <td>{{ book.publicationYear }}</td>
+            <td>{{ book.id }}</td>
+            <td (click)="goToBookPersonalPage(book.id)">{{ book.bookName }}</td>
+            <td>{{ book.author }}</td>
+            <td class="ellipsis">{{ book.genre }}</td>
+            <td>{{ book.publicationYear }}</td>
 
-        </tr>
+          </tr>
         </tbody>
       </table>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-4">
         Items per Page:
         <select (change)="handlePageSizeChange($event)">
           <option *ngFor="let size of pageSizes" [ngValue]="size">
@@ -60,11 +60,12 @@
         </select>
       </div>
 
-    </div>
-    <div class="col-md-10">
-      <div class="text-right">
-        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-                             (pageChange)="handlePageChange($event)"></pagination-controls>
+
+      <div class="col-8">
+        <div class="text-right">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+            (pageChange)="handlePageChange($event)"></pagination-controls>
+        </div>
       </div>
     </div>
   </div>

@@ -1,12 +1,9 @@
 package nastya.BookShop.model;
 
-import org.springframework.stereotype.Component;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Component
 public class DateFormatter {
 
     static ThreadLocal<SimpleDateFormat> YYYY_MM_DD_HH_MM_SS = new ThreadLocal<SimpleDateFormat>() {

@@ -17,8 +17,8 @@ export class ShopAssortmentComponent implements OnInit {
   currentIndex = -1;
   page = 1;
   count = 0;
-  pageSize = 8;
-  pageSizes = [8, 12, 16];
+  pageSize = 9;
+  pageSizes = [9, 12, 16];
 
   constructor(private route: ActivatedRoute, protected router: Router, private bookService: BookService, private assortmentService: AssortmentService) {
     this.id = this.route.snapshot.params.id;
